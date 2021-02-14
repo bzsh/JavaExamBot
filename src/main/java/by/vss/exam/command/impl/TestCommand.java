@@ -74,6 +74,8 @@ public class TestCommand implements Command {
         List<String> buttonQueries = Arrays.asList("view_test_result", "end_task_test");
         markup = getMarkup(buttonNames, buttonQueries);
         result = getResultOfCallback(isCallback, text);
+        test.setActive(false);
+        test.setCurrentTaskIndex(0);
         return result;
     }
 
@@ -96,7 +98,6 @@ public class TestCommand implements Command {
         for (int i = 0; i < totalSize; i++) {
             Task task = tasks.get(i);
             if (task.getRightAnswer().equalsIgnoreCase(answers.get(i))) {
-                System.out.println("Task with id : " + task.getTaskId() + "решена верно с ответом " + task.getRightAnswer());
                 numOfRightAnswers++;
             }
         }
