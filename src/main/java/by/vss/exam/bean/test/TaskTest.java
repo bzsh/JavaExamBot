@@ -28,7 +28,7 @@ public class TaskTest {
     }
 
     public boolean hasNext() {
-        return currentTaskIndex <= newTasks.size() - 1;
+        return currentTaskIndex <= newTasks.size() - 1 || userAnswers.size() < newTasks.size();
     }
 
     public boolean hasPrev() {
@@ -36,8 +36,14 @@ public class TaskTest {
     }
 
     public Task getNext() {
-        Task result = newTasks.get(currentTaskIndex);
-        currentTaskIndex++;
+        Task result;
+        if (currentTaskIndex > 0 && userAnswers.size() < currentTaskIndex) {
+            result = newTasks.get(currentTaskIndex - 1);
+        } else {
+            result = newTasks.get(currentTaskIndex);
+            currentTaskIndex++;
+        }
+//        }
         return result;
     }
 

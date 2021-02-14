@@ -38,7 +38,6 @@ public class TestCommand implements Command {
             test.setNew(false);
         }
 
-
         if (test.isActive()) {
             return viewTestTask();
         } else {
@@ -64,8 +63,6 @@ public class TestCommand implements Command {
     }
 
     private CommandResult viewFinalTestMenu() {
-//        user = userService.getUser(chatId);
-        test.setCurrentTaskIndex(0);
         double mark = calculateTestResult(test);
         String isSuccess = mark >= 70 ? "*Тест пройден!* \uD83C\uDFC6 " : "*Тест провален!* ⛔";
         String text = isSuccess + " \n" +
@@ -73,9 +70,6 @@ public class TestCommand implements Command {
                 "Нажмите : \n" +
                 "- *Результат*, `что бы посмотреть результаты тестирования`\n" +
                 "- *Завершить*, `что бы завершить тест и вернуться в главное меню`";
-
-//        test.setNew(false);
-//        test.setActive(false);
         List<String> buttonNames = Arrays.asList("Результат", "Завершить");
         List<String> buttonQueries = Arrays.asList("view_test_result", "end_task_test");
         markup = getMarkup(buttonNames, buttonQueries);
