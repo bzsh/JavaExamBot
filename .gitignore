@@ -70,10 +70,6 @@ cmake-build-*/
 out/
 target/
 
-# resources
-resources/
-
-
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 
@@ -110,3 +106,7 @@ gradle-app.setting
 .idea/codeStyles/
 .idea/misc.xml
 .idea/vcs.xml
+
+# resources
+src/main/resources/json/*.json
+src/main/resources/settings/*.properties
