@@ -52,7 +52,7 @@ public class CardCommand implements Command {
 
     private CommandResult viewCard() {
         Card currentCard = study.getCurrentCard();
-        String text = prepareOutputText(currentCard.getSideA(),currentCard.getSideB());
+        String text = prepareOutputText(currentCard.getSideA(), currentCard.getSideB());
         boolean isOnLearn = user.getStatistics().getOnLearnJavaCard().contains(currentCard.getCardId());
         List<String> buttonNames = createButtonNames(isOnLearn);
         List<String> buttonQueries = createButtonQueries();
@@ -62,7 +62,7 @@ public class CardCommand implements Command {
     }
 
     private String prepareOutputText(String question, String answer) {
-        return study.isRotated() ? question : answer;
+        return study.isRotated() ? answer : question;
     }
 
     private List<String> createButtonNames(boolean isOnLearn) {

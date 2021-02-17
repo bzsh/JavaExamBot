@@ -11,6 +11,9 @@ public class Card {
     private String sideB;
     private HashMap<Long, String> comments;
 
+    public Card() {
+    }
+
     public Card(Long cardId, String question, String answer, HashMap<Long, String> comments) {
         this.cardId = cardId;
         this.sideA = question;
