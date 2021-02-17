@@ -11,7 +11,7 @@ public final class ConstantHolder {
     public static final String TASK_PATH = "task.path";
     public static final String USER_PATH = "user.path";
     //KeyboardCreator settings
-    public static final int MAX_NUMBER_OF_ANSWERS = 8;
+    public static final String MAX_ANSWERS_IN_TEST = "max.answers.in.test";
     //TaskTestService settings
     public static final String NUM_OF_TASKS = "num.of.tasks";
     //Admin settings

@@ -14,6 +14,9 @@ import java.util.List;
 
 public class KeyboardCreator {
     public static Logger logger = LoggerFactory.getLogger(KeyboardCreator.class);
+    private static final int NUMBER_OF_BUTTONS = Integer.parseInt(ConstantHolder.MAX_ANSWERS_IN_TEST);
+
+    private KeyboardCreator(){}
 
     public static ReplyKeyboardMarkup createReplyKeyboard(List<String> buttonNames, boolean isSelective, boolean isReSize, boolean isOnetime) {
         ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
@@ -65,7 +68,7 @@ public class KeyboardCreator {
 
         if (buttonNames != null && buttonQueries != null) {
             if (buttonNames.size() == buttonQueries.size()) {
-                if (buttonNames.size() > 0 && buttonNames.size() < ConstantHolder.MAX_NUMBER_OF_ANSWERS) {
+                if (buttonNames.size() > 0 && buttonNames.size() < NUMBER_OF_BUTTONS) {
                     List<InlineKeyboardButton> buttons = createInlineKeyboardButtons(buttonNames, buttonQueries);
                     List<List<InlineKeyboardButton>> buttonRows = createInlineKeyboardButtonRows(buttons);
                     keyboardMarkup.setKeyboard(buttonRows);

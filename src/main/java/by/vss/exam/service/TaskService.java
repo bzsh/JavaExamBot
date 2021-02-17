@@ -3,6 +3,7 @@ package by.vss.exam.service;
 import by.vss.exam.bean.Task;
 import by.vss.exam.exception.ExamRepositoryException;
 import by.vss.exam.repository.TaskRepository;
+import by.vss.exam.utill.Shuffler;
 
 import java.util.*;
 
@@ -30,7 +31,7 @@ public class TaskService {
             numberOfTasks = size;
         }
 
-        List<Long> list = getShuffledList(numberOfTasks, size);
+        List<Long> list = Shuffler.getShuffledList(numberOfTasks, size);
         List<Task> tasks = new ArrayList<>(numberOfTasks);
 
         try {
@@ -44,19 +45,4 @@ public class TaskService {
         return tasks;
     }
 
-    private static ArrayList<Long> getShuffledList(int numberOfTasks, int size) {
-        ArrayList<Long> numbersGenerated = new ArrayList<>();             //TODO    !!!!!!
-
-        for (int i = 0; i < numberOfTasks; i++) {
-            Random randNumber = new Random();
-            long iNumber = randNumber.nextInt(size) + 1;
-
-            if (!numbersGenerated.contains(iNumber)) {
-                numbersGenerated.add(iNumber);
-            } else {
-                i--;
-            }
-        }
-        return numbersGenerated;
-    }
 }

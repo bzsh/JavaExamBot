@@ -2,9 +2,7 @@ package by.vss.exam.bean;
 
 import by.vss.exam.bean.role.UserRole;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.HashMap;
 import java.util.Objects;
 
 @JsonAutoDetect
@@ -14,7 +12,7 @@ public class User {
     private String lastName;
     private String userName;
     private UserRole role;
-    private Statistic statistic;
+    private Statistic UserStatistic;
 
     public User(Long userId, String firstName, String lastName, String userName, UserRole role) {
         this.userId = userId;
@@ -68,11 +66,11 @@ public class User {
     }
 
     public Statistic getStatistics() {
-        return statistic;
+        return UserStatistic;
     }
 
-    public void setStatistic(Statistic statistic) {
-        this.statistic = statistic;
+    public void setUserStatistic(Statistic userStatistic) {
+        this.UserStatistic = userStatistic;
     }
 
     @Override
@@ -80,12 +78,12 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(userId, user.userId) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(userName, user.userName) && role == user.role && Objects.equals(statistic, user.statistic);
+        return Objects.equals(userId, user.userId) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(userName, user.userName) && role == user.role && Objects.equals(UserStatistic, user.UserStatistic);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, firstName, lastName, userName, role, statistic);
+        return Objects.hash(userId, firstName, lastName, userName, role, UserStatistic);
     }
 
     @Override

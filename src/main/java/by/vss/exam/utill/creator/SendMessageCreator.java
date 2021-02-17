@@ -5,6 +5,8 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 
 public class SendMessageCreator {
+    private SendMessageCreator() {
+    }
 
     public static SendMessage createSendMessageWithInlineKeyboard(long chatId, InlineKeyboardMarkup markup, String message) {
         SendMessage sendMessage = new SendMessage();

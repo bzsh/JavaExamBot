@@ -4,7 +4,7 @@ import by.vss.exam.bean.Card;
 
 import java.util.List;
 
-public class EngCardStudy {
+public class CardStudy {
     private Long id;
     private boolean isActive = false;
     private boolean isNew = true;
@@ -30,6 +30,4 @@ public class EngCardStudy {
         currentCardIndex--;
         return result;
     }
-
-
 }

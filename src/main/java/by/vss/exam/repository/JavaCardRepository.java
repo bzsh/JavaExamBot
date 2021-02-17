@@ -11,18 +11,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class CardRepository {
-    private static final Logger LOGGER = LoggerFactory.getLogger(CardRepository.class);
-    private static final CardRepository INSTANCE = new CardRepository();
+public class JavaCardRepository {
+    private static final Logger LOGGER = LoggerFactory.getLogger(JavaCardRepository.class);
+    private static final JavaCardRepository INSTANCE = new JavaCardRepository();
     private final UniversalJsonReaderWriter<Card> cardReaderWriter = new UniversalJsonReaderWriter<>(ConstantHolder.JAVA_CARD_PATH, Card.class);
 
     private final HashMap<Long, Card> cards = cardReaderWriter.getAllFromFile();
     private Long lastGeneratedId;
 
-    private CardRepository() {
+    private JavaCardRepository() {
     }
 
-    public static CardRepository getInstance() {
+    public static JavaCardRepository getInstance() {
         return INSTANCE;
     }
 
