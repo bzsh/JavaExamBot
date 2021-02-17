@@ -1,18 +1,30 @@
 package by.vss.exam.command.impl;
 
+import by.vss.exam.bean.Card;
+import by.vss.exam.bean.User;
 import by.vss.exam.bean.study.CardStudy;
 import by.vss.exam.command.Command;
 import by.vss.exam.command.CommandResult;
 import by.vss.exam.service.CardStudyService;
+import by.vss.exam.service.UserService;
+import by.vss.exam.utill.creator.EditMessageTextCreator;
+import by.vss.exam.utill.creator.SendMessageCreator;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CardCommand implements Command {
     InlineKeyboardMarkup markup;
     CardStudyService studyService;
     CommandResult commandResult;
+    UserService userService;
     CardStudy study;
     Long chatId;
+    User user;
     Integer messageId;
     boolean isCallback;
 
@@ -20,6 +32,8 @@ public class CardCommand implements Command {
     public CommandResult execute(Message message, boolean isCallback, String callbackId) {
         this.chatId = message.getChatId();
         this.isCallback = isCallback;
+        this.userService = new UserService();
+        this.user = userService.getUser(chatId);
         markup = new InlineKeyboardMarkup();
         studyService = new CardStudyService();
         study = studyService.getStudyOrCreate(chatId);
@@ -32,10 +46,46 @@ public class CardCommand implements Command {
         if (study.isActive()) {
             return viewCard();
         } else {
-            return viewFinalCardsMenu();
+            return null;
         }
+    }
 
+    private CommandResult viewCard() {
+        if (study.hasNext()) {
+            Card nextCard = study.getNext();
+            String question = nextCard.getSideA();
+            String answer = nextCard.getSideB();
+            user.getStatistics().getOnLearnJavaCard()
+            boolean isOnLearn = user.getStatistics().getOnLearnJavaCard()Card().contains(nextCard.getCardId());
+            List<String> buttonNames = createButtonNames(isOnLearn);
+        }
+    }
 
-        return null;
+    private List<String> createButtonNames(boolean isOnLearn) {
+        List<String> buttons = new ArrayList<>();
+        buttons.add("Prev");
+        buttons.add("Next");
+        buttons.add(isOnLearn ? "Drop from learn" : "Add to learn");
+        buttons.add("Rotate");
+        return buttons;
+    }
+
+    private List<String> createButtonQueries() {
+        List<String> buttons = new ArrayList<>();
+        buttons.add("Prev");
+        buttons.add("Next");
+        buttons.add("LearnCommand");
+        buttons.add("Rotate");
+        return buttons;
+    }
+
+    private CommandResult getResultOfCallback(boolean isCallback, String text) {
+        if (isCallback) {
+            EditMessageText editMessageText = EditMessageTextCreator.createEditMessage(chatId, messageId, markup, text);
+            return new CommandResult(editMessageText);
+        } else {
+            SendMessage sendMessage = SendMessageCreator.createSendMessageWithInlineKeyboard(chatId, markup, text);
+            return new CommandResult(sendMessage);
+        }
     }
 }

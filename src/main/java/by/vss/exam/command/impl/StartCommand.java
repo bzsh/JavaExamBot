@@ -22,7 +22,6 @@ public class StartCommand implements Command {
     TaskTestService service;
     TaskTest test;
     Long id;
-
     User user;
 
     @Override

@@ -6,6 +6,7 @@ import java.util.List;
 
 public class CardStudy {
     private Long id;
+    private StudyType studyType;
     private boolean isActive = false;
     private boolean isNew = true;
     private Integer currentCardIndex = 0;

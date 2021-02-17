@@ -16,7 +16,29 @@ public class KeyboardCreator {
     public static Logger logger = LoggerFactory.getLogger(KeyboardCreator.class);
     private static final int NUMBER_OF_BUTTONS = Integer.parseInt(ConstantHolder.MAX_ANSWERS_IN_TEST);
 
-    private KeyboardCreator(){}
+    private KeyboardCreator() {
+    }
+
+    public static InlineKeyboardMarkup createInlineCardKeyboard(List<String> buttonNames, List<String> buttonQueries) {
+        InlineKeyboardMarkup keyboardMarkup = new InlineKeyboardMarkup();
+
+        if (buttonNames != null && buttonQueries != null) {
+            List<List<InlineKeyboardButton>> buttonRows = new ArrayList<>();
+            List<InlineKeyboardButton> buttons = createInlineKeyboardButtons(buttonNames, buttonQueries);
+            List<InlineKeyboardButton> firstGroup = new ArrayList<>();
+            List<InlineKeyboardButton> secondGroup = new ArrayList<>();
+            List<InlineKeyboardButton> thirdGroup = new ArrayList<>();
+            firstGroup.add(buttons.get(0));
+            firstGroup.add(buttons.get(1));
+            secondGroup.add(buttons.get(2));
+            thirdGroup.add(buttons.get(3));
+            buttonRows.add(firstGroup);
+            buttonRows.add(secondGroup);
+            buttonRows.add(thirdGroup);
+            keyboardMarkup.setKeyboard(buttonRows);
+        }
+        return keyboardMarkup;
+    }
 
     public static ReplyKeyboardMarkup createReplyKeyboard(List<String> buttonNames, boolean isSelective, boolean isReSize, boolean isOnetime) {
         ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();

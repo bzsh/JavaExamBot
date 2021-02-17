@@ -1,16 +1,13 @@
 package by.vss.exam.service;
 
 import by.vss.exam.bean.Card;
-import by.vss.exam.bean.Task;
 import by.vss.exam.bean.study.CardStudy;
-import by.vss.exam.bean.test.TaskTest;
 import by.vss.exam.constant.ConstantHolder;
 import by.vss.exam.exception.ExamRepositoryException;
 import by.vss.exam.repository.CardStudyRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
