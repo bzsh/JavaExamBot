@@ -8,6 +8,7 @@ import by.vss.exam.utill.Shuffler;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 public class CardService {
     JavaCardRepository javaCardRepository = JavaCardRepository.getInstance();
@@ -26,15 +27,26 @@ public class CardService {
         return result;
     }
 
-    public List<Card> getShuffledCardsList(int numberOfCards) {
+    public List<Card> getUserCards(Set<Long> userCards) {
+        List<Card> result = new ArrayList<>(userCards.size());
+        int repoSize = javaCardRepository.getRepositorySize();
+        for (long l = 0; l < repoSize; l++){
+            if(userCards.contains(l)){
+                try {
+                    result.add(javaCardRepository.getCardById(l));
+                }catch(ExamRepositoryException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+            return result;
+    }
+
+    public List<Card> getShuffledCardsList() {
         int size = javaCardRepository.getRepositorySize();
 
-        if (numberOfCards > size) {
-            numberOfCards = size;
-        }
-
-        List<Long> list = Shuffler.getShuffledList(numberOfCards, size);
-        List<Card> cards = new ArrayList<>(numberOfCards);
+        List<Long> list = Shuffler.getShuffledList(size, size);
+        List<Card> cards = new ArrayList<>(size);
 
         try {
             for (Long l : list) {

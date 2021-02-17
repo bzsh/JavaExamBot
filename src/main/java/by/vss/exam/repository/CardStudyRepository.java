@@ -58,4 +58,5 @@ public class CardStudyRepository {
         }
         throw new ExamRepositoryException("Repository doesn't have any studies");
     }
+
 }

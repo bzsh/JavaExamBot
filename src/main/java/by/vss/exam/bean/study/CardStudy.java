@@ -11,6 +11,50 @@ public class CardStudy {
     private Integer currentCardIndex = 0;
     private List<Card> newCards;
 
+    public CardStudy(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public boolean isNew() {
+        return isNew;
+    }
+
+    public void setNew(boolean aNew) {
+        isNew = aNew;
+    }
+
+    public Integer getCurrentCardIndex() {
+        return currentCardIndex;
+    }
+
+    public void setCurrentCardIndex(Integer currentCardIndex) {
+        this.currentCardIndex = currentCardIndex;
+    }
+
+    public List<Card> getNewCards() {
+        return newCards;
+    }
+
+    public void setNewCards(List<Card> newCards) {
+        this.newCards = newCards;
+    }
+
     public boolean hasNext() {
         return currentCardIndex <= newCards.size() - 1;
     }
