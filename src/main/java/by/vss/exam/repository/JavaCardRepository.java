@@ -61,4 +61,9 @@ public class JavaCardRepository {
             throw new ExamRepositoryException("Repository doesn't have any cards to remove");
         }
     }
+
+    public void saveAllToFile()  {
+        System.out.println(cards.size());
+        cardReaderWriter.addAllToFile(cards);
+    }
 }

@@ -42,6 +42,14 @@ public class Card {
         this.sideB = sideB;
     }
 
+    public HashMap<Long, String> getComments() {
+        return comments;
+    }
+
+    public void setComments(HashMap<Long, String> comments) {
+        this.comments = comments;
+    }
+
     public void addComment(Long userId, String comment) {
         if (comments.containsKey(userId)) {
             String oldComment = comments.get(userId);

@@ -12,7 +12,7 @@ public class User {
     private String lastName;
     private String userName;
     private UserRole role;
-    private Statistic UserStatistic;
+    private Statistic UserStatistic = new Statistic();
 
     public User(Long userId, String firstName, String lastName, String userName, UserRole role) {
         this.userId = userId;

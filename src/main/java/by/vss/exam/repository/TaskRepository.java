@@ -61,4 +61,8 @@ public class TaskRepository {
             throw new ExamRepositoryException("Repository doesn't have any task to remove");
         }
     }
+
+    public void saveAllToFile()  {
+        taskReaderWriter.addAllToFile(tasks);
+    }
 }
