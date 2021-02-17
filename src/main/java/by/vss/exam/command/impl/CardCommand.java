@@ -8,6 +8,7 @@ import by.vss.exam.command.CommandResult;
 import by.vss.exam.service.CardStudyService;
 import by.vss.exam.service.UserService;
 import by.vss.exam.utill.creator.EditMessageTextCreator;
+import by.vss.exam.utill.creator.KeyboardCreator;
 import by.vss.exam.utill.creator.SendMessageCreator;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
@@ -34,7 +35,6 @@ public class CardCommand implements Command {
         this.isCallback = isCallback;
         this.userService = new UserService();
         this.user = userService.getUser(chatId);
-        markup = new InlineKeyboardMarkup();
         studyService = new CardStudyService();
         study = studyService.getStudyOrCreate(chatId);
 
@@ -51,14 +51,18 @@ public class CardCommand implements Command {
     }
 
     private CommandResult viewCard() {
-        if (study.hasNext()) {
-            Card nextCard = study.getNext();
-            String question = nextCard.getSideA();
-            String answer = nextCard.getSideB();
-            user.getStatistics().getOnLearnJavaCard()
-            boolean isOnLearn = user.getStatistics().getOnLearnJavaCard()Card().contains(nextCard.getCardId());
-            List<String> buttonNames = createButtonNames(isOnLearn);
-        }
+        Card currentCard = study.getCurrentCard();
+        String text = prepareOutputText(currentCard.getSideA(),currentCard.getSideB());
+        boolean isOnLearn = user.getStatistics().getOnLearnJavaCard().contains(currentCard.getCardId());
+        List<String> buttonNames = createButtonNames(isOnLearn);
+        List<String> buttonQueries = createButtonQueries();
+        markup = getMarkup(buttonNames, buttonQueries);
+        return getResultOfCallback(isCallback, text);
+
+    }
+
+    private String prepareOutputText(String question, String answer) {
+        return study.isRotated() ? question : answer;
     }
 
     private List<String> createButtonNames(boolean isOnLearn) {
@@ -74,9 +78,13 @@ public class CardCommand implements Command {
         List<String> buttons = new ArrayList<>();
         buttons.add("Prev");
         buttons.add("Next");
-        buttons.add("LearnCommand");
+        buttons.add("Learn");
         buttons.add("Rotate");
         return buttons;
+    }
+
+    private InlineKeyboardMarkup getMarkup(List<String> buttonNames, List<String> buttonQueries) {
+        return KeyboardCreator.createInlineCardKeyboard(buttonNames, buttonQueries);
     }
 
     private CommandResult getResultOfCallback(boolean isCallback, String text) {

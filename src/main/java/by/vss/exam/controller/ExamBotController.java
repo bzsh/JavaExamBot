@@ -22,10 +22,10 @@ public class ExamBotController extends TelegramLongPollingBot {
     private static final Logger LOGGER = LoggerFactory.getLogger(ExamBotController.class);
     private final ResourceBundle bundle = ResourceBundle.getBundle(ConstantHolder.BOT_PROPERTIES);
 
-    public ExamBotController() {
-//        DefaultBotOptions options = getOptions();
-//        options.setMaxThreads(5);
-    }
+//    public ExamBotController() {
+////        DefaultBotOptions options = getOptions();
+////        options.setMaxThreads(5);
+//    }
 
     @Override
     public void onUpdateReceived(Update update) {

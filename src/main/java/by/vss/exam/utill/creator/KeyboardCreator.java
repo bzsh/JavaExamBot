@@ -11,10 +11,12 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.Keyboard
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class KeyboardCreator {
     public static Logger logger = LoggerFactory.getLogger(KeyboardCreator.class);
-    private static final int NUMBER_OF_BUTTONS = Integer.parseInt(ConstantHolder.MAX_ANSWERS_IN_TEST);
+    private static final ResourceBundle bundle = ResourceBundle.getBundle(ConstantHolder.BOT_PROPERTIES);
+    private static final int NUMBER_OF_BUTTONS = Integer.parseInt(bundle.getString(ConstantHolder.MAX_ANSWERS_IN_TEST));
 
     private KeyboardCreator() {
     }
@@ -32,9 +34,9 @@ public class KeyboardCreator {
             firstGroup.add(buttons.get(1));
             secondGroup.add(buttons.get(2));
             thirdGroup.add(buttons.get(3));
-            buttonRows.add(firstGroup);
-            buttonRows.add(secondGroup);
-            buttonRows.add(thirdGroup);
+           buttonRows.add(firstGroup);
+           buttonRows.add(secondGroup);
+           buttonRows.add(thirdGroup);
             keyboardMarkup.setKeyboard(buttonRows);
         }
         return keyboardMarkup;
@@ -136,3 +138,6 @@ public class KeyboardCreator {
         return buttonRows;
     }
 }
+
+
+

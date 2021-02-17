@@ -7,6 +7,7 @@ import java.util.List;
 public class CardStudy {
     private Long id;
     private StudyType studyType;
+    private boolean isRotated = false;
     private boolean isActive = false;
     private boolean isNew = true;
     private Integer currentCardIndex = 0;
@@ -22,6 +23,14 @@ public class CardStudy {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public boolean isRotated() {
+        return isRotated;
+    }
+
+    public void setRotated(boolean rotated) {
+        isRotated = rotated;
     }
 
     public boolean isActive() {
@@ -74,5 +83,9 @@ public class CardStudy {
         Card result = newCards.get(currentCardIndex);
         currentCardIndex--;
         return result;
+    }
+
+    public Card getCurrentCard() {
+        return newCards.get(currentCardIndex);
     }
 }
