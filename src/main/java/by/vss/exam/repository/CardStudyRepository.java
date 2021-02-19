@@ -1,7 +1,6 @@
 package by.vss.exam.repository;
 
 import by.vss.exam.bean.study.CardStudy;
-import by.vss.exam.bean.test.TaskTest;
 import by.vss.exam.exception.ExamRepositoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

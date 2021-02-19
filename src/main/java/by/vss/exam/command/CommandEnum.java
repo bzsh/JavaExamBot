@@ -3,26 +3,37 @@ package by.vss.exam.command;
 import by.vss.exam.command.impl.*;
 
 public enum CommandEnum {
+
+    //Start
+    START(new StartCommand()),
+
+    //main menu commands
     TEST(new TestCommand()),
     CARD(new CardCommand()),
-    CONTRIBUTE(new MenageCommand()),
+    MANAGE(new MenageCommand()),
     ABOUT(new AboutCommand()),
 
+    // test commands
     RESUME_TEST(new ResumeTestCommand()),
     MAIN_MENU(new MainMenuCommand()),
     END_TASK_TEST(new EndTaskTestCommand()),
     VIEW_TEST_RESULT(new ViewTestResultCommand()),
 
-    ROTATE_CARD(new RotateCardCommand()),
-    START(new StartCommand()),
-    EXIT(new ExitCommand()),
-
+    //test answers commands
     A(new ACommand()),
     B(new BCommand()),
     C(new CCommand()),
     D(new DCommand()),
     E(new ECommand()),
     F(new FCommand()),
+
+    //Card command
+    PREV_CARD(new PrevCardCommand()),
+    NEXT_CARD(new NextCardCommand()),
+    LEARN_CARD(new LearnCardCommand()),
+    ROTATE_CARD(new RotateCardCommand()),
+
+    EXIT(new ExitCommand()),
 
     EMOJI(new EmojiCommand()),
 

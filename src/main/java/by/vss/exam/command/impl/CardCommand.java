@@ -21,7 +21,6 @@ import java.util.List;
 public class CardCommand implements Command {
     InlineKeyboardMarkup markup;
     CardStudyService studyService;
-    CommandResult commandResult;
     UserService userService;
     CardStudy study;
     Long chatId;
@@ -32,6 +31,7 @@ public class CardCommand implements Command {
     @Override
     public CommandResult execute(Message message, boolean isCallback, String callbackId) {
         this.chatId = message.getChatId();
+        this.messageId = message.getMessageId();
         this.isCallback = isCallback;
         this.userService = new UserService();
         this.user = userService.getUser(chatId);
@@ -76,10 +76,10 @@ public class CardCommand implements Command {
 
     private List<String> createButtonQueries() {
         List<String> buttons = new ArrayList<>();
-        buttons.add("Prev");
-        buttons.add("Next");
-        buttons.add("Learn");
-        buttons.add("Rotate");
+        buttons.add("Prev_card");
+        buttons.add("Next_card");
+        buttons.add("Learn_card");
+        buttons.add("Rotate_card");
         return buttons;
     }
 

@@ -66,11 +66,11 @@ public class CardStudy {
     }
 
     public boolean hasNext() {
-        return currentCardIndex <= newCards.size() - 1;
+        return currentCardIndex < newCards.size() - 1;
     }
 
     public boolean hasPrev() {
-        return currentCardIndex >= 0;
+        return currentCardIndex > 0;
     }
 
     public Card getNext() {

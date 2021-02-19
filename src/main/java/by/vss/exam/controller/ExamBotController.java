@@ -123,11 +123,7 @@ public class ExamBotController extends TelegramLongPollingBot {
         CommandFactory factory = new CommandFactory();
         Command command = factory.defineCommand(data);
         CommandResult commandResult = command.execute(callbackMessage, true, callbackId);
-        if (commandResult.hasSendMessage()) {
-            sendMsg(commandResult);
-        } else if (commandResult.hasEditMessage()) {
-            editMsg(commandResult);
-        }
+        executeCommandResult(commandResult);
     }
 
     @Override
