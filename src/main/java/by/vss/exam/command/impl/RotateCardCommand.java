@@ -8,7 +8,6 @@ import by.vss.exam.service.UserService;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
 public class RotateCardCommand implements Command {
-
     CardStudyService studyService;
     CardStudy study;
     Long chatId;

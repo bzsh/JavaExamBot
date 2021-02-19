@@ -57,6 +57,18 @@ public class Statistic {
         onLearnJavaCard.add(onLearnTaskId);
     }
 
+    public void removeJavaCardIdToStatistic(Long onLearnJavaCardId) {
+        onLearnJavaCard.remove(onLearnJavaCardId);
+    }
+
+    public void removeEnglishCardIdToStatistic(Long onLearnEnglishCardId) {
+        onLearnJavaCard.remove(onLearnEnglishCardId);
+    }
+
+    public void removeTaskIdToStatistic(Long onLearnTaskId) {
+        onLearnJavaCard.remove(onLearnTaskId);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
