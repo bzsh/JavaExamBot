@@ -22,7 +22,7 @@ public class NextCardCommand implements Command {
         study.setRotated(false);
         if (study.hasNext()) {
             study.getNext();
-            return new CardCommand().execute(message, isCallback, callbackId);
+            return new CardEngineCommand().execute(message, isCallback, callbackId);
         } else {
             AnswerCallbackQuery callbackQuery = new AnswerCallbackQuery();
             callbackQuery.setShowAlert(false);

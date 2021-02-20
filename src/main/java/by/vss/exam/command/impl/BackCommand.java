@@ -4,9 +4,9 @@ import by.vss.exam.command.Command;
 import by.vss.exam.command.CommandResult;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
-public class LearnedCardsCommand implements Command {
+public class BackCommand implements Command {
     @Override
     public CommandResult execute(Message message, boolean isCallback, String callbackId) {
-        return null;
+        return new MainMenuCommand().execute(message, isCallback, callbackId);
     }
 }

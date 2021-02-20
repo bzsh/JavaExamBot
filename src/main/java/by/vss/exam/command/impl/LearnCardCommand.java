@@ -39,6 +39,6 @@ public class LearnCardCommand implements Command {
         } else {
             userStatistic.addJavaCardIdToStatistic(cardId);
         }
-        return new CardCommand().execute(message, isCallback, callbackId);
+        return new CardEngineCommand().execute(message, isCallback, callbackId);
     }
 }

@@ -23,9 +23,10 @@ public enum CommandEnum {
     ENGLISH_TEST_COMMAND(new EnglishTestCommand()),
 
     //card menu commands
-    LEARNED_CARDS(new LearnedCardsCommand()),
-    JAVA_CARDS(new JavaCardsCommand()),
-    ENGLISH_CARDS(new EnglishCardsCommand()),
+    OPTIONAL(new OptionalCardsCommand()),
+    JAVA(new JavaCardsCommand()),
+    ENGLISH(new EnglishCardsCommand()),
+    BACK(new BackCommand()),
 
     //manage menu command
     CREATE_TEST_COMMAND(new CreateTestCommand()),
@@ -57,7 +58,6 @@ public enum CommandEnum {
     STATISTICS(new StatisticsCommand()),
     EXAMPLE(new ExampleCommand()),
     EMPTY(new EmptyCommand());
-
 
     private final Command command;
 

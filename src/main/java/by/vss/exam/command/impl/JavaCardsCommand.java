@@ -7,6 +7,6 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 public class JavaCardsCommand implements Command {
     @Override
     public CommandResult execute(Message message, boolean isCallback, String callbackId) {
-        return null;
+        return new CardEngineCommand().execute(message, isCallback, callbackId);
     }
 }

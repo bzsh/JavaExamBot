@@ -59,7 +59,7 @@ public class ViewTestResultCommand implements Command {
             EditMessageText editMessageText = EditMessageTextCreator.createEditMessage(chatId, messageId, markup, taskReview);
             result = new CommandResult(editMessageText);
         } else {
-            result = new TestCommand().execute(message, isCallback, callbackId);
+            result = new TestEngineCommand().execute(message, isCallback, callbackId);
         }
         return result;
     }

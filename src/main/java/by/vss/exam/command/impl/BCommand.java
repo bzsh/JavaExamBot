@@ -16,6 +16,6 @@ public class BCommand implements Command {
         service = new TaskTestService();
         test = service.getTestOrCreate(chatId);
         test.addUserAnswer("B");
-        return new TestCommand().execute(message, isCallback, callbackId);
+        return new TestEngineCommand().execute(message, isCallback, callbackId);
     }
 }

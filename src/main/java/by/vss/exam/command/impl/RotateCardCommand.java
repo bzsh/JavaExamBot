@@ -4,7 +4,6 @@ import by.vss.exam.bean.study.CardStudy;
 import by.vss.exam.command.Command;
 import by.vss.exam.command.CommandResult;
 import by.vss.exam.service.CardStudyService;
-import by.vss.exam.service.UserService;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
 public class RotateCardCommand implements Command {
@@ -20,6 +19,6 @@ public class RotateCardCommand implements Command {
         studyService = new CardStudyService();
         study = studyService.getStudyOrCreate(chatId);
         study.setRotated(!study.isRotated());
-        return new CardCommand().execute(message, isCallback, callbackId);
+        return new CardEngineCommand().execute(message, isCallback, callbackId);
     }
 }
