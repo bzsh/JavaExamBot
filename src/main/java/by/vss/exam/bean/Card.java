@@ -4,9 +4,11 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 import java.util.HashMap;
 import java.util.Objects;
+
 @JsonAutoDetect
 public class Card {
     private Long cardId;
+    private CardType cardType;
     private String sideA;
     private String sideB;
     private HashMap<Long, String> comments;
@@ -27,6 +29,14 @@ public class Card {
 
     public void setCardId(Long cardId) {
         this.cardId = cardId;
+    }
+
+    public CardType getCardType() {
+        return cardType;
+    }
+
+    public void setCardType(CardType cardType) {
+        this.cardType = cardType;
     }
 
     public String getSideA() {

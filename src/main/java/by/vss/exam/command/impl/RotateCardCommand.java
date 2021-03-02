@@ -17,7 +17,7 @@ public class RotateCardCommand implements Command {
         this.chatId = message.getChatId();
         this.isCallback = isCallback;
         studyService = new CardStudyService();
-        study = studyService.getStudyOrCreate(chatId);
+        study = studyService.getStudy(chatId);  //TOdo check for null and/or return delete this message
         study.setRotated(!study.isRotated());
         return new CardEngineCommand().execute(message, isCallback, callbackId);
     }

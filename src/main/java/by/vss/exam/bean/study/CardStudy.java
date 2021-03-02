@@ -6,10 +6,10 @@ import java.util.List;
 
 public class CardStudy {
     private Long id;
-    private StudyType studyType;
+    private boolean isOptional = false;
     private boolean isRotated = false;
     private boolean isActive = false;
-    private boolean isNew = true;
+    private boolean isNew = false;
     private Integer currentCardIndex = 0;
     private List<Card> newCards;
 
@@ -23,6 +23,14 @@ public class CardStudy {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public boolean isOptional() {
+        return isOptional;
+    }
+
+    public void setOptional(boolean optional) {
+        isOptional = optional;
     }
 
     public boolean isRotated() {

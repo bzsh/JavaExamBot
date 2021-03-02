@@ -40,8 +40,8 @@ public class StartCommand implements Command {
 
         if (isTestActiveOrExist()) {
             startResponse = firstname + " " + lastname + " У вас имеется незавершенный тест, хотите вернуться к тестированию?";
-            List<String> buttonNames = Arrays.asList("< к тесту >", "< к меню >");
-            List<String> buttonQueries = Arrays.asList("resume_test", "main_menu");
+            List<String> buttonNames = Arrays.asList("<К тесту >", "<Завершить>");
+            List<String> buttonQueries = Arrays.asList("resume_test", "end_task_test");
             InlineKeyboardMarkup markup = KeyboardCreator.createInlineKeyboard(buttonNames, buttonQueries);
             sendMessage = SendMessageCreator.createSendMessageWithInlineKeyboard(id, markup, startResponse);
         } else {

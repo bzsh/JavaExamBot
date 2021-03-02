@@ -66,7 +66,7 @@ public class TestEngineCommand implements Command {
         double mark = calculateTestResult(test);
         String isSuccess = mark >= 70 ? "*Тест пройден!* \uD83C\uDFC6 " : "*Тест провален!* ⛔";
         String text = isSuccess + " \n" +
-                "У вас " + mark + " % правльных ответов !\n" +
+                "У вас " + mark + " % правильных ответов !\n" +
                 "Нажмите : \n" +
                 "- *Результат*, `что бы посмотреть результаты тестирования`\n" +
                 "- *Завершить*, `что бы завершить тест и вернуться в главное меню`";

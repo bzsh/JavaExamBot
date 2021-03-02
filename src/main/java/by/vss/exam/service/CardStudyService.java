@@ -1,6 +1,7 @@
 package by.vss.exam.service;
 
 import by.vss.exam.bean.Card;
+import by.vss.exam.bean.CardType;
 import by.vss.exam.bean.study.CardStudy;
 import by.vss.exam.constant.ConstantHolder;
 import by.vss.exam.exception.ExamRepositoryException;
@@ -31,15 +32,15 @@ public class CardStudyService {
         }
     }
 
-    public void doStudyAsNew(CardStudy oldStudy) {
-        List<Card> cards = cardService.getShuffledCardsList();
+    public void doStudyAsNew(CardStudy oldStudy, CardType type) {
+        List<Card> cards = cardService.getShuffledCardsList(type);
         oldStudy.setCurrentCardIndex(0);
         oldStudy.setNewCards(cards);
         oldStudy.setNew(true);
         oldStudy.setActive(false);
     }
 
-    private CardStudy getStudy(Long id) {
+    public CardStudy getStudy(Long id) {
         try {
             return cardStudyRepository.getStudyById(id);
         } catch (ExamRepositoryException e) {
@@ -50,8 +51,6 @@ public class CardStudyService {
 
     private CardStudy createStudy(Long id) {
         CardStudy study = new CardStudy(id);
-        List<Card> cards = cardService.getShuffledCardsList();
-        study.setNewCards(cards);
         cardStudyRepository.addStudy(id, study);
         return study;
     }

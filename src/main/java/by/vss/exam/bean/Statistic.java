@@ -50,11 +50,11 @@ public class Statistic {
     }
 
     public void addEnglishCardIdToStatistic(Long onLearnEnglishCardId) {
-        onLearnJavaCard.add(onLearnEnglishCardId);
+        onLearnEnglishCard.add(onLearnEnglishCardId);
     }
 
     public void addTaskIdToStatistic(Long onLearnTaskId) {
-        onLearnJavaCard.add(onLearnTaskId);
+        onLearnTask.add(onLearnTaskId);
     }
 
     public void removeJavaCardIdToStatistic(Long onLearnJavaCardId) {
@@ -62,11 +62,11 @@ public class Statistic {
     }
 
     public void removeEnglishCardIdToStatistic(Long onLearnEnglishCardId) {
-        onLearnJavaCard.remove(onLearnEnglishCardId);
+        onLearnEnglishCard.remove(onLearnEnglishCardId);
     }
 
     public void removeTaskIdToStatistic(Long onLearnTaskId) {
-        onLearnJavaCard.remove(onLearnTaskId);
+        onLearnTask.remove(onLearnTaskId);
     }
 
     @Override

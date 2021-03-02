@@ -11,12 +11,21 @@ public class CCommand implements Command {
     TaskTestService service;
     TaskTest test;
     Long chatId;
+
     @Override
     public CommandResult execute(Message message, boolean isCallback, String callbackId) {
         chatId = message.getChatId();
         service = new TaskTestService();
         test = service.getTestOrCreate(chatId);
         test.addUserAnswer("C");
-        return new TestEngineCommand().execute(message, isCallback, callbackId);
+
+        if (!test.isActive()) {
+            return new EndTaskTestCommand().execute(message, isCallback, callbackId);
+        }
+        if (isCallback) {
+            return new TestEngineCommand().execute(message, isCallback, callbackId);
+        } else {
+            return new EmptyCommand().execute(message, isCallback, callbackId);
+        }
     }
 }

@@ -1,6 +1,8 @@
 package by.vss.exam.command.impl;
 
 import by.vss.exam.bean.Card;
+import by.vss.exam.bean.CardType;
+import by.vss.exam.bean.Statistic;
 import by.vss.exam.bean.User;
 import by.vss.exam.bean.study.CardStudy;
 import by.vss.exam.command.Command;
@@ -22,9 +24,15 @@ public class CardEngineCommand implements Command {
     InlineKeyboardMarkup markup;
     CardStudyService studyService;
     UserService userService;
+    Statistic userStatistic;
+    Card currentCard;
+    boolean isEnglishType;
+    boolean isJavaType;
+    CardType cardType;
     CardStudy study;
     Long chatId;
     User user;
+
     Integer messageId;
     boolean isCallback;
 
@@ -35,8 +43,15 @@ public class CardEngineCommand implements Command {
         this.isCallback = isCallback;
         this.userService = new UserService();
         this.user = userService.getUser(chatId);
-        studyService = new CardStudyService();
-        study = studyService.getStudyOrCreate(chatId);
+        this.userStatistic = user.getStatistics();
+        this.studyService = new CardStudyService();
+        this.study = studyService.getStudy(chatId);
+        this.currentCard = study.getCurrentCard();
+        this.cardType = currentCard.getCardType();
+        isEnglishType = cardType.equals(CardType.ENGLISH);
+        isJavaType = cardType.equals(CardType.JAVA);
+
+        //TOdo check for null and/or return delete this message
 
         if (study.isNew()) {
             study.setActive(true);
@@ -51,9 +66,8 @@ public class CardEngineCommand implements Command {
     }
 
     private CommandResult viewCard() {
-        Card currentCard = study.getCurrentCard();
         String text = prepareOutputText(currentCard.getSideA(), currentCard.getSideB());
-        boolean isOnLearn = user.getStatistics().getOnLearnJavaCard().contains(currentCard.getCardId());
+        boolean isOnLearn = getCardIsLearnedByType();
         List<String> buttonNames = createButtonNames(isOnLearn);
         List<String> buttonQueries = createButtonQueries();
         markup = getMarkup(buttonNames, buttonQueries);
@@ -85,6 +99,16 @@ public class CardEngineCommand implements Command {
 
     private InlineKeyboardMarkup getMarkup(List<String> buttonNames, List<String> buttonQueries) {
         return KeyboardCreator.createInlineCardKeyboard(buttonNames, buttonQueries);
+    }
+
+    private boolean getCardIsLearnedByType() {
+        boolean result = false;
+        if (isJavaType) {
+            result = userStatistic.getOnLearnJavaCard().contains(currentCard.getCardId());
+        } else if (isEnglishType) {
+            result = userStatistic.getOnLearnEnglishCard().contains(currentCard.getCardId());
+        }
+        return result;
     }
 
     private CommandResult getResultOfCallback(boolean isCallback, String text) {

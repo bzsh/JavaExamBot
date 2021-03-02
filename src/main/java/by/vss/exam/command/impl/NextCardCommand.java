@@ -18,7 +18,7 @@ public class NextCardCommand implements Command {
         this.chatId = message.getChatId();
         this.isCallback = isCallback;
         studyService = new CardStudyService();
-        study = studyService.getStudyOrCreate(chatId);
+        study = studyService.getStudy(chatId);     //TOdo check for null and/or return delete this message
         study.setRotated(false);
         if (study.hasNext()) {
             study.getNext();
