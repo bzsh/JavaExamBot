@@ -56,7 +56,7 @@ public class ViewTestResultCommand implements Command {
             List<String> buttonNames = Arrays.asList("Продолжить " + "✏");
             List<String> buttonQueries = Arrays.asList("view_test_result");
             markup = KeyboardCreator.createInlineKeyboard(buttonNames, buttonQueries);
-            EditMessageText editMessageText = EditMessageTextCreator.createEditMessage(chatId, messageId, markup, taskReview);
+            EditMessageText editMessageText = EditMessageTextCreator.createEditMessageWithInlineMarkup(chatId, messageId, markup, taskReview);
             result = new CommandResult(editMessageText);
         } else {
             result = new TestEngineCommand().execute(message, isCallback, callbackId);
@@ -90,7 +90,7 @@ public class ViewTestResultCommand implements Command {
         List<String> buttonNames = Arrays.asList("К меню");
         List<String> buttonQueries = Arrays.asList("main_menu");
         markup = KeyboardCreator.createInlineKeyboard(buttonNames, buttonQueries);
-        return new CommandResult(EditMessageTextCreator.createEditMessage(chatId, messageId, markup, text));
+        return new CommandResult(EditMessageTextCreator.createEditMessageWithInlineMarkup(chatId, messageId, markup, text));
     }
 
     private CommandResult viewDeleteMessage() {

@@ -81,7 +81,7 @@ public class TestEngineCommand implements Command {
 
     private CommandResult getResultOfCallback(boolean isCallback, String text) {
         if (isCallback) {
-            EditMessageText editMessageText = EditMessageTextCreator.createEditMessage(chatId, messageId, markup, text);
+            EditMessageText editMessageText = EditMessageTextCreator.createEditMessageWithInlineMarkup(chatId, messageId, markup, text);
             return new CommandResult(editMessageText);
         } else {
             SendMessage sendMessage = SendMessageCreator.createSendMessageWithInlineKeyboard(chatId, markup, text);

@@ -36,7 +36,7 @@ public class EmojiCommand implements Command {
     private CommandResult getResultOfCallback(boolean isCallback, String text) {
         if (isCallback) {
             flag = !flag;
-            EditMessageText editMessageText = EditMessageTextCreator.createEditMessage(chatId, messageId, changeMarkup(flag), text);
+            EditMessageText editMessageText = EditMessageTextCreator.createEditMessageWithInlineMarkup(chatId, messageId, changeMarkup(flag), text);
             return new CommandResult(editMessageText);
         } else {
             flag = true;

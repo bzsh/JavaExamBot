@@ -17,7 +17,7 @@ public class JavaCardRepository implements Repository<Card> {
     private final UniversalJsonReaderWriter<Card> cardReaderWriter = new UniversalJsonReaderWriter<>(ConstantHolder.JAVA_CARD_PATH, Card.class);
 
     private final HashMap<Long, Card> cards = cardReaderWriter.getAllFromFile();
-    private Long lastGeneratedId;
+    private Long lastGeneratedId = cards.get(ConstantHolder.LAST_GENERATED_ID_CARD).getCardId();
 
     private JavaCardRepository() {
     }
@@ -27,8 +27,11 @@ public class JavaCardRepository implements Repository<Card> {
     }
 
     @Override
-    public void add(Long id, Card card) {
+    public void add(Card card) {
+        Long id = lastGeneratedId + 1;
         cards.put(id, card);
+        lastGeneratedId++;
+        cards.put(ConstantHolder.LAST_GENERATED_ID_CARD, new Card(lastGeneratedId));
     }
 
     @Override
@@ -37,6 +40,12 @@ public class JavaCardRepository implements Repository<Card> {
         LOGGER.info("getRepositorySize method was called and returned size: {}.", repoSize);
         return repoSize;
     }
+
+    @Override
+    public boolean contains(Long id) {
+        return cards.containsKey(id);
+    }
+
     @Override
     public List<Card> getAll() throws ExamRepositoryException {
         List<Card> result = new ArrayList<>(cards.values());
@@ -46,6 +55,7 @@ public class JavaCardRepository implements Repository<Card> {
         LOGGER.warn("Repository doesn't have any cards");
         throw new ExamRepositoryException("Repository doesn't have any cards");
     }
+
     @Override
     public Card getById(Long id) throws ExamRepositoryException {
         if (cards.containsKey(id)) {
@@ -55,6 +65,7 @@ public class JavaCardRepository implements Repository<Card> {
         LOGGER.warn("Repository doesn't have any cards with such Id");
         throw new ExamRepositoryException("Repository doesn't have any cards with such Id");
     }
+
     @Override
     public void removeById(Long id) throws ExamRepositoryException {
         if (cards.containsKey(id)) {
@@ -63,9 +74,15 @@ public class JavaCardRepository implements Repository<Card> {
             throw new ExamRepositoryException("Repository doesn't have any cards to remove");
         }
     }
+
     @Override
     public void saveAllToFile() {
         System.out.println(cards.size());
         cardReaderWriter.addAllToFile(cards);
+    }
+
+    @Override
+    public Long getLastGeneratedId() {
+        return lastGeneratedId;
     }
 }

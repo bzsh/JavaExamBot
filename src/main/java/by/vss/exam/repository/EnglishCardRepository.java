@@ -17,7 +17,7 @@ public class EnglishCardRepository implements Repository<Card> {
     private final UniversalJsonReaderWriter<Card> cardReaderWriter = new UniversalJsonReaderWriter<>(ConstantHolder.ENG_CARD_PATH, Card.class);
 
     private final HashMap<Long, Card> cards = cardReaderWriter.getAllFromFile();
-    private Long lastGeneratedId;
+    private Long lastGeneratedId = cards.get(ConstantHolder.LAST_GENERATED_ID_CARD).getCardId();
 
     private EnglishCardRepository() {
     }
@@ -27,8 +27,11 @@ public class EnglishCardRepository implements Repository<Card> {
     }
 
     @Override
-    public void add(Long id, Card card) {
+    public void add(Card card) {
+        Long id = lastGeneratedId + 1;
         cards.put(id, card);
+        lastGeneratedId++;
+        cards.put(ConstantHolder.LAST_GENERATED_ID_CARD, new Card(lastGeneratedId));
     }
 
     @Override
@@ -71,5 +74,15 @@ public class EnglishCardRepository implements Repository<Card> {
     public void saveAllToFile() {
         System.out.println(cards.size());
         cardReaderWriter.addAllToFile(cards);
+    }
+
+    @Override
+    public boolean contains(Long id) {
+        return cards.containsKey(id);
+    }
+
+    @Override
+    public Long getLastGeneratedId() {
+        return lastGeneratedId;
     }
 }

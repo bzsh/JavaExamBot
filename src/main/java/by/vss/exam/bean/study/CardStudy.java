@@ -3,6 +3,7 @@ package by.vss.exam.bean.study;
 import by.vss.exam.bean.Card;
 
 import java.util.List;
+import java.util.Objects;
 
 public class CardStudy {
     private Long id;
@@ -95,5 +96,18 @@ public class CardStudy {
 
     public Card getCurrentCard() {
         return newCards.get(currentCardIndex);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CardStudy study = (CardStudy) o;
+        return isOptional == study.isOptional && isRotated == study.isRotated && isActive == study.isActive && isNew == study.isNew && Objects.equals(id, study.id) && Objects.equals(currentCardIndex, study.currentCardIndex) && Objects.equals(newCards, study.newCards);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, isOptional, isRotated, isActive, isNew, currentCardIndex, newCards);
     }
 }

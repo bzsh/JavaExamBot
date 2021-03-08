@@ -1,5 +1,7 @@
 package by.vss.exam.command.impl;
 
+import by.vss.exam.bean.Card;
+import by.vss.exam.bean.CardType;
 import by.vss.exam.bean.study.CardStudy;
 import by.vss.exam.command.Command;
 import by.vss.exam.command.CommandResult;
@@ -7,9 +9,13 @@ import by.vss.exam.service.CardStudyService;
 import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
+import java.util.Random;
+
 public class PrevCardCommand implements Command {
     CardStudyService studyService;
     CardStudy study;
+//    Card currentCard;   // random rotated
+//    CardType type;  // random rotated
     Long chatId;
     boolean isCallback;
 
@@ -18,8 +24,10 @@ public class PrevCardCommand implements Command {
         this.chatId = message.getChatId();
         this.isCallback = isCallback;
         studyService = new CardStudyService();
-        study = studyService.getStudy(chatId);           //TOdo check for null and/or return delete this message
-        study.setRotated(false);
+        study = studyService.getStudy(chatId);
+//        currentCard = study.getCurrentCard();   // random rotated
+//        type = currentCard.getCardType();   // random rotated
+//        study.setRotated(getRandomBooleanByCardType());   // random rotated
         if (study.hasPrev()) {
             study.getPrev();
             return new CardEngineCommand().execute(message, isCallback, callbackId);
@@ -31,4 +39,13 @@ public class PrevCardCommand implements Command {
             return new CommandResult(callbackQuery);
         }
     }
+
+//    private boolean getRandomBooleanByCardType() { // random rotated
+//        Random random = new Random();
+//        boolean result = false;
+//        if (type.equals(CardType.ENGLISH)) {
+//            result = random.nextBoolean();
+//        }
+//        return result;
+//    }
 }

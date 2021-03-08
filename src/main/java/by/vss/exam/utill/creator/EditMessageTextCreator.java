@@ -7,13 +7,21 @@ public class EditMessageTextCreator {
     private EditMessageTextCreator() {
     }
 
-    public static EditMessageText createEditMessage(long chatId, int messageId, InlineKeyboardMarkup markup, String message) {
+    public static EditMessageText createEditMessageWithInlineMarkup(long chatId, int messageId, InlineKeyboardMarkup markup, String message) {
         EditMessageText editMessageText = new EditMessageText();
         editMessageText.setChatId(chatId);
         editMessageText.setMessageId(messageId);
         editMessageText.setReplyMarkup(markup);
         editMessageText.setText(message);
         editMessageText.enableMarkdown(true);
+        return editMessageText;
+    }
+
+    public static EditMessageText createEditMessage(long chatId, int messageId, String message) {
+        EditMessageText editMessageText = new EditMessageText();
+        editMessageText.setChatId(chatId);
+        editMessageText.setMessageId(messageId);
+        editMessageText.setText(message);
         return editMessageText;
     }
 }

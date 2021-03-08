@@ -33,7 +33,8 @@ public class KeyboardCreator {
             firstGroup.add(buttons.get(0));
             firstGroup.add(buttons.get(1));
             secondGroup.add(buttons.get(2));
-            thirdGroup.add(buttons.get(3));
+            secondGroup.add(buttons.get(3));
+            thirdGroup.add(buttons.get(4));
            buttonRows.add(firstGroup);
            buttonRows.add(secondGroup);
            buttonRows.add(thirdGroup);

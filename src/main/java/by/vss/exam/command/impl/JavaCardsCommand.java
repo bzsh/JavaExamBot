@@ -10,7 +10,6 @@ import by.vss.exam.command.CommandResult;
 import by.vss.exam.service.CardService;
 import by.vss.exam.service.CardStudyService;
 import by.vss.exam.service.UserService;
-import by.vss.exam.utill.creator.EditMessageTextCreator;
 import by.vss.exam.utill.creator.KeyboardCreator;
 import by.vss.exam.utill.creator.SendMessageCreator;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -34,6 +33,7 @@ public class JavaCardsCommand implements Command {
         cardService = new CardService();
         studyService = new CardStudyService();
         study = studyService.getStudyOrCreate(chatId);
+//        study.setRotated(false);
         studyService.doStudyAsNew(study, CardType.JAVA);
 
         List<Card> cards;
@@ -43,7 +43,7 @@ public class JavaCardsCommand implements Command {
             userStatistics = user.getStatistics();
             cards = cardService.getUserCards(userStatistics.getOnLearnJavaCard(), CardType.JAVA);
         } else {
-            cards = cardService.getShuffledCardsList(CardType.JAVA);
+            cards = cardService.getShuffledApprovedCardsList(CardType.JAVA);
         }
         if (cards.isEmpty() && study.isOptional()) {
             String response = "У вас нет сохраненных карточек !";

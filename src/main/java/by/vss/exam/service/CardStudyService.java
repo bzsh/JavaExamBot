@@ -33,7 +33,7 @@ public class CardStudyService {
     }
 
     public void doStudyAsNew(CardStudy oldStudy, CardType type) {
-        List<Card> cards = cardService.getShuffledCardsList(type);
+        List<Card> cards = cardService.getShuffledApprovedCardsList(type);
         oldStudy.setCurrentCardIndex(0);
         oldStudy.setNewCards(cards);
         oldStudy.setNew(true);

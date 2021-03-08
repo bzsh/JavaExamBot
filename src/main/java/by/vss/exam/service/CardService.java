@@ -2,11 +2,13 @@ package by.vss.exam.service;
 
 import by.vss.exam.bean.Card;
 import by.vss.exam.bean.CardType;
+import by.vss.exam.bean.test.TaskTest;
 import by.vss.exam.exception.ExamRepositoryException;
 import by.vss.exam.repository.EnglishCardRepository;
 import by.vss.exam.repository.JavaCardRepository;
 import by.vss.exam.repository.Repository;
 import by.vss.exam.utill.Shuffler;
+import com.fasterxml.jackson.databind.node.LongNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,42 @@ public class CardService {
 
     public CardService() {
 
+    }
+
+    public boolean containsCard(Long id, CardType cardType) {
+        if (cardType.equals(CardType.JAVA)) {
+            return javaCardRepository.contains(id);
+        } else if (cardType.equals(CardType.ENGLISH)) {
+            return englishCardRepository.contains(id);
+        }
+        return false;
+    }
+
+//    public Card getCardOrCreate(Long id, CardType type) {
+//        if (containsCard(id, type)) {
+//            return getCard(id, type);
+//        } else {
+//            return createCard(type);
+//        }
+//    }
+
+    public Card getCard(Long id, CardType type) {
+        try {
+            return getRepositoryByType(type).getById(id);
+        } catch (ExamRepositoryException e) {
+            e.printStackTrace();
+        }
+        return new Card();
+    }
+
+    public Card createCard(CardType type) {
+        Repository<Card> repository = getRepositoryByType(type);
+        Long id = repository.getLastGeneratedId() + 1;
+        Card card = new Card();
+        card.setCardType(type);
+        card.setCardId(id);
+        repository.add(card);
+        return card;
     }
 
     public List<Card> getAllCards(CardType type) {
@@ -47,16 +85,19 @@ public class CardService {
         return result;
     }
 
-    public List<Card> getShuffledCardsList(CardType type) {
+    public List<Card> getShuffledApprovedCardsList(CardType type) {
         Repository<Card> repository = getRepositoryByType(type);
-        int size = repository.getRepositorySize();
+        int size = repository.getRepositorySize() - 1;   //todo -1  т.к. надо вычесть карту хранящую последний сгенерированный айди
 
         List<Long> list = Shuffler.getShuffledList(size, size);
-        List<Card> cards = new ArrayList<>(size);
+        List<Card> cards = new ArrayList<>();
 
         try {
             for (Long l : list) {
-                cards.add(repository.getById(l));
+                Card card = repository.getById(l);
+                if (card.isApproved()) {
+                    cards.add(repository.getById(l));
+                }
             }
         } catch (ExamRepositoryException e) {
             e.printStackTrace();

@@ -2,6 +2,7 @@ package by.vss.exam.command.factory;
 
 import by.vss.exam.command.Command;
 import by.vss.exam.command.CommandEnum;
+import by.vss.exam.command.impl.DataReceiverCommand;
 import by.vss.exam.command.impl.EmptyCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +11,7 @@ public class CommandFactory {
     public static Logger logger = LoggerFactory.getLogger(CommandFactory.class);
 
     public Command defineCommand(String command) {
-        Command currentCommand = new EmptyCommand();
+        Command currentCommand = new DataReceiverCommand();
         if (command != null) {
             if (command.startsWith("/")) {
                 command = command.substring(1);
@@ -20,7 +21,6 @@ public class CommandFactory {
             } catch (IllegalArgumentException e) {
                 logger.error("No such command exists!");
             }
-
         }
         return currentCommand;
     }

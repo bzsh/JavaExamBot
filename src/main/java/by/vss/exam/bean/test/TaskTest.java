@@ -3,6 +3,7 @@ package by.vss.exam.bean.test;
 import by.vss.exam.bean.Task;
 
 import java.util.List;
+import java.util.Objects;
 
 public class TaskTest {
     private Long id;
@@ -96,4 +97,18 @@ public class TaskTest {
     public List<Task> getNewTasks() {
         return newTasks;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TaskTest test = (TaskTest) o;
+        return isActive == test.isActive && isNew == test.isNew && Objects.equals(id, test.id) && Objects.equals(currentTaskIndex, test.currentTaskIndex) && Objects.equals(newTasks, test.newTasks) && Objects.equals(userAnswers, test.userAnswers);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, isActive, isNew, currentTaskIndex, newTasks, userAnswers);
+    }
+
 }

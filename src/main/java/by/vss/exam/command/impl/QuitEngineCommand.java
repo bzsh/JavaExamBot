@@ -1,43 +1,43 @@
 package by.vss.exam.command.impl;
 
-import by.vss.exam.bean.test.TaskTest;
 import by.vss.exam.command.Command;
 import by.vss.exam.command.CommandResult;
-import by.vss.exam.service.TaskTestService;
+import by.vss.exam.utill.creator.DeleteMessageCreator;
 import by.vss.exam.utill.creator.EditMessageTextCreator;
 import by.vss.exam.utill.creator.KeyboardCreator;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class EndTaskTestCommand implements Command {
-    TaskTestService service;
-    Integer messageId;
-    TaskTest test;
+public class QuitEngineCommand implements Command {
+    InlineKeyboardMarkup markup;
     Long chatId;
-
+    Integer messageId;
     @Override
     public CommandResult execute(Message message, boolean isCallback, String callbackId) {
-        chatId = message.getChatId();
-        messageId = message.getMessageId();
-        service = new TaskTestService();
-        test = service.getTestOrCreate(chatId);
-        service.doTestAsNew(test);
+        this.chatId = message.getChatId();
+        this.messageId = message.getMessageId();
         if (isCallback) {
-           return viewFinishMenu();
+                return viewFinishMenu();
         } else {
-            return new EmptyCommand().execute(message, isCallback, callbackId);
+            return viewDeleteMessage();
         }
     }
-
     private CommandResult viewFinishMenu() {
-        String text = "Тест завершен !\n" +
-                "Результат сохранен, спасибо !\n";
+        String text = "Обучение завершено !\n" +
+                "Тренеруйтесь чаще, что бы\n" +
+                "улучшить свои знания !";
         List<String> buttonNames = Arrays.asList("К меню");
         List<String> buttonQueries = Arrays.asList("main_menu");
-       InlineKeyboardMarkup markup = KeyboardCreator.createInlineKeyboard(buttonNames, buttonQueries);
+        markup = KeyboardCreator.createInlineKeyboard(buttonNames, buttonQueries);
         return new CommandResult(EditMessageTextCreator.createEditMessageWithInlineMarkup(chatId, messageId, markup, text));
+    }
+
+    private CommandResult viewDeleteMessage() {
+        DeleteMessage deleteMessage = DeleteMessageCreator.createDeleteMessage(chatId, messageId);
+        return new CommandResult(deleteMessage);
     }
 }

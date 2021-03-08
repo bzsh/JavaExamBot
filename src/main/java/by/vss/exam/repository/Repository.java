@@ -5,9 +5,11 @@ import by.vss.exam.exception.ExamRepositoryException;
 import java.util.List;
 
 public interface Repository<T> {
-    void add(Long id, T t);
+    void add( T t);
 
     int getRepositorySize();
+
+    boolean contains(Long id);
 
     List<T> getAll() throws ExamRepositoryException;
 
@@ -16,4 +18,7 @@ public interface Repository<T> {
     void removeById(Long id) throws ExamRepositoryException;
 
     void saveAllToFile();
+
+    Long getLastGeneratedId();
+
 }

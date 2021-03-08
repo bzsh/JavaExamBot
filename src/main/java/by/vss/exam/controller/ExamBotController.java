@@ -100,6 +100,7 @@ public class ExamBotController extends TelegramLongPollingBot {
                 "\n <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< MessageWasReceived <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< \n");
 
         if (message.hasText()) {
+
             CommandFactory factory = new CommandFactory();
             Command command = factory.defineCommand(message.getText());
             CommandResult commandResult = command.execute(message, false, callbackId);

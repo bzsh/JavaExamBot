@@ -41,7 +41,7 @@ public class EnglishCardsCommand implements Command {
             userStatistics = user.getStatistics();
             cards = cardService.getUserCards(userStatistics.getOnLearnEnglishCard(), CardType.ENGLISH);
         } else {
-            cards = cardService.getShuffledCardsList(CardType.ENGLISH);
+            cards = cardService.getShuffledApprovedCardsList(CardType.ENGLISH);
         }
         if (cards.isEmpty() && study.isOptional()) {
             String response = "У вас нет сохраненных карточек !";

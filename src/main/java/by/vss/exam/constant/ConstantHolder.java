@@ -17,4 +17,6 @@ public final class ConstantHolder {
     //Admin settings
     public static final String ADMIN_LOGIN = "admin.login";
     public static final String ADMIN_PASSWORD = "admin.password";
+    //Repository settings
+    public static final Long LAST_GENERATED_ID_CARD = -3L;
 }

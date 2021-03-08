@@ -8,6 +8,8 @@ import java.util.Objects;
 @JsonAutoDetect
 public class Card {
     private Long cardId;
+    private Long creatorId;
+    private Boolean isApproved;
     private CardType cardType;
     private String sideA;
     private String sideB;
@@ -16,11 +18,40 @@ public class Card {
     public Card() {
     }
 
-    public Card(Long cardId, String question, String answer, HashMap<Long, String> comments) {
+    public Card(Long id) {
+        this.cardId = id;
+    }
+
+    public Card(Long cardId, Long creatorId, Boolean isApproved, CardType cardType, String sideA, String sideB, HashMap<Long, String> comments) {
         this.cardId = cardId;
-        this.sideA = question;
-        this.sideB = answer;
+        this.creatorId = creatorId;
+        this.isApproved = isApproved;
+        this.cardType = cardType;
+        this.sideA = sideA;
+        this.sideB = sideB;
         this.comments = comments;
+    }
+//    public Card(Long cardId, Long creatorId, String question, String answer, HashMap<Long, String> comments) {
+//        this.cardId = cardId;
+//        this.sideA = question;
+//        this.sideB = answer;
+//        this.comments = comments;
+//    }
+
+    public Long getCreatorId() {
+        return creatorId;
+    }
+
+    public void setCreatorId(Long creatorId) {
+        this.creatorId = creatorId;
+    }
+
+    public Boolean isApproved() {
+        return isApproved;
+    }
+
+    public void setApproved(Boolean approved) {
+        isApproved = approved;
     }
 
     public Long getCardId() {
@@ -77,20 +108,11 @@ public class Card {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Card card = (Card) o;
-        return Objects.equals(cardId, card.cardId) && Objects.equals(sideA, card.sideA) && Objects.equals(sideB, card.sideB) && Objects.equals(comments, card.comments);
+        return Objects.equals(cardId, card.cardId) && Objects.equals(creatorId, card.creatorId) && Objects.equals(isApproved, card.isApproved) && cardType == card.cardType && Objects.equals(sideA, card.sideA) && Objects.equals(sideB, card.sideB) && Objects.equals(comments, card.comments);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cardId, sideA, sideB, comments);
-    }
-
-    @Override
-    public String toString() {
-        return "Card{" +
-                "cardId=" + cardId +
-                ", question='" + sideA + '\'' +
-                ", answer='" + sideB + '\'' +
-                '}';
+        return Objects.hash(cardId, creatorId, isApproved, cardType, sideA, sideB, comments);
     }
 }

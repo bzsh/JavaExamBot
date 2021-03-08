@@ -38,20 +38,18 @@ public class CardEngineCommand implements Command {
 
     @Override
     public CommandResult execute(Message message, boolean isCallback, String callbackId) {
-        this.chatId = message.getChatId();
-        this.messageId = message.getMessageId();
+        chatId = message.getChatId();
+        messageId = message.getMessageId();
         this.isCallback = isCallback;
-        this.userService = new UserService();
-        this.user = userService.getUser(chatId);
-        this.userStatistic = user.getStatistics();
-        this.studyService = new CardStudyService();
-        this.study = studyService.getStudy(chatId);
-        this.currentCard = study.getCurrentCard();
-        this.cardType = currentCard.getCardType();
+        userService = new UserService();
+        user = userService.getUser(chatId);
+        userStatistic = user.getStatistics();
+        studyService = new CardStudyService();
+        study = studyService.getStudy(chatId);
+        currentCard = study.getCurrentCard();
+        cardType = currentCard.getCardType();
         isEnglishType = cardType.equals(CardType.ENGLISH);
         isJavaType = cardType.equals(CardType.JAVA);
-
-        //TOdo check for null and/or return delete this message
 
         if (study.isNew()) {
             study.setActive(true);
@@ -72,7 +70,6 @@ public class CardEngineCommand implements Command {
         List<String> buttonQueries = createButtonQueries();
         markup = getMarkup(buttonNames, buttonQueries);
         return getResultOfCallback(isCallback, text);
-
     }
 
     private String prepareOutputText(String question, String answer) {
@@ -84,6 +81,7 @@ public class CardEngineCommand implements Command {
         buttons.add("Prev");
         buttons.add("Next");
         buttons.add(isOnLearn ? "Drop from learn" : "Add to learn");
+        buttons.add("Quit");
         buttons.add("Rotate");
         return buttons;
     }
@@ -93,6 +91,7 @@ public class CardEngineCommand implements Command {
         buttons.add("Prev_card");
         buttons.add("Next_card");
         buttons.add("Learn_card");
+        buttons.add("Quit_engine");
         buttons.add("Rotate_card");
         return buttons;
     }
@@ -113,7 +112,7 @@ public class CardEngineCommand implements Command {
 
     private CommandResult getResultOfCallback(boolean isCallback, String text) {
         if (isCallback) {
-            EditMessageText editMessageText = EditMessageTextCreator.createEditMessage(chatId, messageId, markup, text);
+            EditMessageText editMessageText = EditMessageTextCreator.createEditMessageWithInlineMarkup(chatId, messageId, markup, text);
             return new CommandResult(editMessageText);
         } else {
             SendMessage sendMessage = SendMessageCreator.createSendMessageWithInlineKeyboard(chatId, markup, text);
