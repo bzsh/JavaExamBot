@@ -21,7 +21,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import java.util.Arrays;
 import java.util.List;
 
-public class ManageEngineCommand implements Command {
+public class CreateCardEngineCommand implements Command {
     public static final String CONTROL_MENU_INFO = "Используйте кнопку\n" +
             "*- просмотр*\n" +
             "Для просмотра каждой стороны \n" +
@@ -54,6 +54,14 @@ public class ManageEngineCommand implements Command {
     public static final String EDITING_ANSWER_TEXT = "*Новый вответ принят!*\n" +
             CONTROL_MENU_INFO;
 
+    public static final String SAVED_CARD_TEXT = "*Сохранено!*\n" +
+            "Ваша карточка сохранена и \n" +
+            "отправлена на модерацию.\n" +
+            "нажмите:\n" +
+            "* - Продолжить*, что бы продолжить\n" +
+            "создание карточек, либо\n" +
+            "* - Завершить*, что бы выйти.";
+
     ManageSeanceService seanceService;
     InlineKeyboardMarkup markup;
     ManageSeance manageSeance;
@@ -66,7 +74,6 @@ public class ManageEngineCommand implements Command {
     CardService cardService;
     Card javaCard;
     Card englishCard;
-    Task task;
 
     @Override
     public CommandResult execute(Message message, boolean isCallback, String callbackId) {
@@ -81,15 +88,8 @@ public class ManageEngineCommand implements Command {
         manageStage = manageSeance.getManageStage();
         userString = manageSeance.getUserString();
 
-        System.out.println("in Manage Engine !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        System.out.println(userString);
-        System.out.println(manageType);
-        System.out.println(manageStage);
-
-
         response = getResponseByManageStage();
         doLogicByManageStage();
-
 
         return getResultOfCallback(isCallback, response);
     }
@@ -111,33 +111,12 @@ public class ManageEngineCommand implements Command {
                 return getCardByManageType(manageType).getSideA();
             case SHOW_ANSWER:
                 return getCardByManageType(manageType).getSideB();
-            case SAVED:
-                break;
+            case SAVED_CARD:
+               return SAVED_CARD_TEXT;
         }
         return "";
     }
 
-    private CommandResult getResultByManageType(boolean isCallback) {
-        CommandResult result = null;
-        switch (manageType) {
-            case CREATE_JAVA_CARD:
-                break;
-            case CREATE_ENGLISH_CARD:
-                break;
-            case CREATE_TEST:
-
-                break;
-            case EDIT_ENGLISH_CARD:
-
-                break;
-            case EDIT_JAVA_CARD:
-
-                break;
-            case EDIT_TEST:
-                break;
-        }
-        return result;
-    }
 
     private void doLogicByManageStage() {
         switch (manageStage) {
@@ -166,7 +145,7 @@ public class ManageEngineCommand implements Command {
                 getCardByManageType(manageType).setSideB("`" + FrameCreator.createFrameStringMessage(userString, "║") + "`");
                 makeMainCreateView("✔ Ответ");
                 break;
-            case SAVED:
+            case SAVED_CARD:
                 break;
         }
     }
@@ -186,7 +165,7 @@ public class ManageEngineCommand implements Command {
         List<String> buttonNames;
         List<String> buttonQueries;
         buttonNames = Arrays.asList(button, "Сохранить", "Выход", "Изменить вопрос", "Изменить ответ");
-        buttonQueries = Arrays.asList("view_create_card_result", "Save_card_command", "quit_create", "edit_question", "edit_answer");
+        buttonQueries = Arrays.asList("view_create_card_result", "save_card_command", "quit_create", "edit_question", "edit_answer");
         markup = KeyboardCreator.createInlineKeyboard(buttonNames, buttonQueries);
     }
 
@@ -215,13 +194,5 @@ public class ManageEngineCommand implements Command {
             return new CommandResult(sendMessage);
         }
     }
-//
-//    private CommandResult getCommandResult(boolean isCallback){
-//        return getResultOfCallback(isCallback, response);
-//    }
-
-//    List<String> buttonNames = Arrays.asList("Ввести вопрос", "Выход");
-//    List<String> buttonQueries = Arrays.asList("enter_question", "enter_answer", "quit_create");
-//    markup = KeyboardCreator.createInlineKeyboard(buttonNames, buttonQueries);
 }
 

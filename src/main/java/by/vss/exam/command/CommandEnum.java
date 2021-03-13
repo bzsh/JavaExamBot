@@ -10,7 +10,7 @@ public enum CommandEnum {
     //engine command
     CARD_ENGINE_COMMAND(new CardEngineCommand()),
     TEST_ENGINE_COMMAND(new TestEngineCommand()),
-    MANAGE_ENGINE_COMMAND(new ManageEngineCommand()),
+    MANAGE_ENGINE_COMMAND(new CreateCardEngineCommand()),
     QUIT_ENGINE(new QuitEngineCommand()),
 
     //main menu commands
@@ -31,7 +31,6 @@ public enum CommandEnum {
 
     //manage menu command
     INFО(new InfoCommand()),
-    ЕDIT(new EditCommand()),
     CREАTE(new CreateCardCommand()),
     CONTRОL(new ControlCommand()),
 
@@ -46,8 +45,6 @@ public enum CommandEnum {
     CREATE_ENGLISH(new CreateEnglishCardCommand()),
     CREATE_JAVA(new CreateJavaCardCommand()),
 
-    EDIT_ENGLISH(new EditEnglishCardCommand()),
-    EDIT_JAVA(new EditJavaCardCommand()),
 
     QUIT_CREATE(new QuitCreateCardCommand()),
 

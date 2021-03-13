@@ -10,7 +10,7 @@ public enum ManageStage {
     RECEIVED_EDITED_QUESTION,
     RECEIVED_EDITED_ANSWER,
 
-    SAVED,
+    SAVED_CARD,
 
     SHOW_QUESTION,
     SHOW_ANSWER,

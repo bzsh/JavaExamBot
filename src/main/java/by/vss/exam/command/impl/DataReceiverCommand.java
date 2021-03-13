@@ -26,7 +26,7 @@ public class DataReceiverCommand implements Command {
                 userString = message.getText();
                 manageSeance.setUserString(userString);
                 manageSeance.setOnReceived(false);
-                return new ManageEngineCommand().execute(message, isCallback, callbackId);
+                return new CreateCardEngineCommand().execute(message, isCallback, callbackId);
             } else {
                 return new EmptyCommand().execute(message, isCallback, callbackId);
             }

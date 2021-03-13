@@ -34,6 +34,6 @@ public class CreateJavaCardCommand implements Command {
             manageSeance.setManageStage(ManageStage.SHOW_START_MESSAGE);
             manageSeance.setActive(true);
         }
-        return new ManageEngineCommand().execute(message, isCallback, callbackId);
+        return new CreateCardEngineCommand().execute(message, isCallback, callbackId);
     }
 }

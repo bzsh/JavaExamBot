@@ -30,8 +30,8 @@ public class EnglishCardRepository implements Repository<Card> {
     public void add(Card card) {
         Long id = lastGeneratedId + 1;
         cards.put(id, card);
-        lastGeneratedId++;
-        cards.put(ConstantHolder.LAST_GENERATED_ID_CARD, new Card(lastGeneratedId));
+        cards.get(ConstantHolder.LAST_GENERATED_ID_CARD).setCardId(id);
+        lastGeneratedId = cards.get(ConstantHolder.LAST_GENERATED_ID_CARD).getCardId();
     }
 
     @Override

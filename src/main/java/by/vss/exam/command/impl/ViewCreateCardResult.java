@@ -25,6 +25,6 @@ public class ViewCreateCardResult implements Command {
         } else if (manageSeance.getManageStage().equals(ManageStage.SHOW_QUESTION)) {
             manageSeance.setManageStage(ManageStage.SHOW_ANSWER);
         }
-        return new ManageEngineCommand().execute(message, isCallback, callbackId);
+        return new CreateCardEngineCommand().execute(message, isCallback, callbackId);
     }
 }
