@@ -32,7 +32,7 @@ public class MainMenuCommand implements Command {
             menuResponse = greetings + menu;
         }
 
-        List<String> buttonNames = Arrays.asList("Test", "Card", "Manage", "About");
+        List<String> buttonNames = Arrays.asList("Tеst", "Cаrd", "Mаnage", "Аbout");
         ReplyKeyboardMarkup markup = KeyboardCreator.createReplyKeyboard(buttonNames, true, true, true);
         sendMessage = SendMessageCreator.createSendMessageWithReplyKeyboard(id, markup, menuResponse);
         return new CommandResult(sendMessage);

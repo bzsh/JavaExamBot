@@ -26,11 +26,10 @@ public class ManageMenuCommand implements Command {
 
         String menu =
                 "*Меню уравления*\n\n" +
-                        "*Create* - `Создание карт или тестов`\n" +
-                        "*Edit* - `Редактирование `\n" +
+                        "*Create* - `Создание карт`\n" +
                         "*Info* - `Информация`\n" +
                         "*Back* - `Вернуться в главное меню`";
-        List<String> buttonNames = Arrays.asList("Create", "Edit", "Control", "Back");
+        List<String> buttonNames = Arrays.asList("Creаte", "Infо", "Contrоl", "Bаck");
         ReplyKeyboardMarkup markup = KeyboardCreator.createReplyKeyboard(buttonNames, true, true, true);
         SendMessage sendMessage = SendMessageCreator.createSendMessageWithReplyKeyboard(chatId, markup, menu);
         return new CommandResult(sendMessage);

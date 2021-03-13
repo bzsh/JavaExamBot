@@ -48,12 +48,14 @@ public class CardService {
         return new Card();
     }
 
-    public Card createCard(CardType type) {
+    public Card createCard(CardType type, Long creatorId) {
         Repository<Card> repository = getRepositoryByType(type);
         Long id = repository.getLastGeneratedId() + 1;
         Card card = new Card();
         card.setCardType(type);
         card.setCardId(id);
+        card.setCreatorId(creatorId);
+        card.setApproved(false);
         repository.add(card);
         return card;
     }

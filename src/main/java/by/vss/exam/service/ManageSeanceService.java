@@ -1,5 +1,6 @@
 package by.vss.exam.service;
 
+import by.vss.exam.bean.Card;
 import by.vss.exam.bean.manage.ManageSeance;
 import by.vss.exam.constant.ConstantHolder;
 import by.vss.exam.exception.ExamRepositoryException;
@@ -31,9 +32,7 @@ public class ManageSeanceService {
     public void doManageSeanceAsNew(ManageSeance manageSeance) {
         manageSeance.setOnReceived(false);
         manageSeance.setActive(false);
-        manageSeance.setEnglishCard(null);
-        manageSeance.setJavaCard(null);
-        manageSeance.setTest(null);
+        resetCardData(manageSeance);
         manageSeance.setUserString("");
     }
 
@@ -50,5 +49,19 @@ public class ManageSeanceService {
         ManageSeance manageSeance = new ManageSeance(id);
         manageSeanceRepository.addManageSeance(id, manageSeance);
         return manageSeance;
+    }
+
+    private void resetCardData(ManageSeance manageSeance) {
+        Card javaCard = manageSeance.getJavaCard();
+        Card englishCard = manageSeance.getEnglishCard();
+
+        if (javaCard != null) {
+            javaCard.setSideA("");
+            javaCard.setSideB("");
+        }
+        if (englishCard != null) {
+            englishCard.setSideA("");
+            englishCard.setSideB("");
+        }
     }
 }

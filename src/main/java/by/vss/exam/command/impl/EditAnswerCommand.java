@@ -8,7 +8,7 @@ import by.vss.exam.service.ManageSeanceService;
 import by.vss.exam.utill.creator.EditMessageTextCreator;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
-public class EnterAnswerCommand implements Command {
+public class EditAnswerCommand implements Command {
     ManageSeanceService seanceService;
     ManageSeance manageSeance;
     Integer messageId;
@@ -21,8 +21,8 @@ public class EnterAnswerCommand implements Command {
         seanceService = new ManageSeanceService();
         manageSeance = seanceService.getManageSeanceOrCreate(chatId);
         manageSeance.setOnReceived(true);
-        manageSeance.setManageStage(ManageStage.RECEIVED_ANSWER);
-        String response = " - Введите ответ";
+        manageSeance.setManageStage(ManageStage.RECEIVED_EDITED_ANSWER);
+        String response = " - Введите новый ответ";
         return new CommandResult(EditMessageTextCreator.createEditMessage(chatId, messageId, response));
     }
 }

@@ -2,11 +2,17 @@ package by.vss.exam.bean.manage;
 
 public enum ManageStage {
     SHOW_START_MESSAGE,
-    READY_TO_SAVE,
+    SHOW_FINAL_MESSAGE,
 
     RECEIVED_QUESTION,
     RECEIVED_ANSWER,
 
+    RECEIVED_EDITED_QUESTION,
+    RECEIVED_EDITED_ANSWER,
 
+    SAVED,
+
+    SHOW_QUESTION,
+    SHOW_ANSWER,
 
 }

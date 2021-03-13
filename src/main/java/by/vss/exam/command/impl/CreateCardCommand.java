@@ -17,7 +17,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import java.util.Arrays;
 import java.util.List;
 
-public class CreateCommand implements Command {
+public class CreateCardCommand implements Command {
     UserService userService;
     TaskTestService service;
     SendMessage sendMessage;

@@ -23,7 +23,7 @@ public class QuitCreateCardCommand implements Command {
             String response = "Спасибо за участие и пополнении\n" +
                     "коллекции карточек !";
             List<String> buttonNames = Arrays.asList("В меню");
-            List<String> buttonQueries = Arrays.asList("Manage");
+            List<String> buttonQueries = Arrays.asList("Mаnage");
             InlineKeyboardMarkup markup = KeyboardCreator.createInlineKeyboard(buttonNames, buttonQueries);
             return new CommandResult(EditMessageTextCreator.createEditMessageWithInlineMarkup(chatId, messageId, markup, response));
         } else {

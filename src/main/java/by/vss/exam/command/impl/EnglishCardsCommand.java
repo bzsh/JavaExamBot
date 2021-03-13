@@ -46,7 +46,7 @@ public class EnglishCardsCommand implements Command {
         if (cards.isEmpty() && study.isOptional()) {
             String response = "У вас нет сохраненных карточек !";
             List<String> buttonNames = Arrays.asList("Назад");
-            List<String> buttonQueries = Arrays.asList("Optional");
+            List<String> buttonQueries = Arrays.asList("Optionаl");
             InlineKeyboardMarkup markup = KeyboardCreator.createInlineKeyboard(buttonNames, buttonQueries);
             return new CommandResult(SendMessageCreator.createSendMessageWithInlineKeyboard(chatId, markup, response));
         }

@@ -35,7 +35,7 @@ public class CardMenuCommand implements Command {
                         "*English* - `по всем английским словам`\n" +
                         "*Optional* - `по выбранным вами картам`\n" +
                         "*Back* - `Вернуться в главное меню`";
-        List<String> buttonNames = Arrays.asList("Java", "English", "Optional", "Back");
+        List<String> buttonNames = Arrays.asList("Javа", "Еnglish", "Optionаl", "Bаck");
         ReplyKeyboardMarkup markup = KeyboardCreator.createReplyKeyboard(buttonNames, true, true, true);
         sendMessage = SendMessageCreator.createSendMessageWithReplyKeyboard(chatId, markup, menu);
         return new CommandResult(sendMessage);

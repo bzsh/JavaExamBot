@@ -4,6 +4,7 @@ import by.vss.exam.command.Command;
 import by.vss.exam.command.CommandEnum;
 import by.vss.exam.command.impl.DataReceiverCommand;
 import by.vss.exam.command.impl.EmptyCommand;
+import by.vss.exam.service.ManageSeanceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

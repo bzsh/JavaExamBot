@@ -14,29 +14,34 @@ public enum CommandEnum {
     QUIT_ENGINE(new QuitEngineCommand()),
 
     //main menu commands
-    TEST(new TestCommand()),
-    CARD(new CardMenuCommand()),
-    MANAGE(new ManageMenuCommand()),
-    ABOUT(new AboutCommand()),
+    TЕST(new TestCommand()),
+    CАRD(new CardMenuCommand()),
+    MАNAGE(new ManageMenuCommand()),
+    АBOUT(new AboutCommand()),
 
     //test menu commands
     JAVA_TEST_COMMAND(new JavaTestCommand()),
     ENGLISH_TEST_COMMAND(new EnglishTestCommand()),
 
     //card menu commands
-    OPTIONAL(new OptionalCardsMenuCommand()),
-    JAVA(new JavaCardsCommand()),
-    ENGLISH(new EnglishCardsCommand()),
-    BACK(new BackCommand()),
+    OPTIONАL(new OptionalCardsMenuCommand()),
+    JAVА(new JavaCardsCommand()),
+    ЕNGLISH(new EnglishCardsCommand()),
+    BАCK(new BackCommand()),
 
     //manage menu command
-    EDIT(new EditCommand()),
-    CREATE(new CreateCommand()),
-    CONTROL(new ControlCommand()),
+    INFО(new InfoCommand()),
+    ЕDIT(new EditCommand()),
+    CREАTE(new CreateCardCommand()),
+    CONTRОL(new ControlCommand()),
 
-
+    VIEW_MANAGE_SEANCE_WARNING_MENU(new ViewManageSeanceWarningMenu()),
+    VIEW_CREATE_CARD_RESULT(new ViewCreateCardResult()),
     ENTER_QUESTION(new EnterQuestionCommand()),
     ENTER_ANSWER(new EnterAnswerCommand()),
+
+    EDIT_QUESTION(new EditQuestionCommand()),
+    EDIT_ANSWER(new EditAnswerCommand()),
 
     CREATE_ENGLISH(new CreateEnglishCardCommand()),
     CREATE_JAVA(new CreateJavaCardCommand()),
@@ -49,6 +54,7 @@ public enum CommandEnum {
     CREATE_TEST_COMMAND(new CreateTestCommand()),
 
     RESET_SEANCE_COMMAND(new ResetManageSeanceAndQuit()),
+
     // test commands
     RESUME_TEST(new ResumeTestCommand()),
     MAIN_MENU(new MainMenuCommand()),
