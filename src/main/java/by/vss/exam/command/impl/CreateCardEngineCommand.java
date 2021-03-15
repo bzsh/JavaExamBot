@@ -1,7 +1,6 @@
 package by.vss.exam.command.impl;
 
 import by.vss.exam.bean.Card;
-import by.vss.exam.bean.Task;
 import by.vss.exam.bean.manage.ManageSeance;
 import by.vss.exam.bean.manage.ManageType;
 import by.vss.exam.bean.manage.ManageStage;
@@ -31,7 +30,7 @@ public class CreateCardEngineCommand implements Command {
             "*- изменить ответ* \n" +
             "Для сохранения нажмите кнопку\n" +
             "*- сохранить*\n" +
-            "После модерации она появится\n" +
+            "После модерации ваша карта появится\n" +
             "среди остальных карточек и будет \n" +
             "доступна для обучения. Что бы выйти\n" +
             "в меню управления нажминте\n" +
@@ -54,13 +53,11 @@ public class CreateCardEngineCommand implements Command {
     public static final String EDITING_ANSWER_TEXT = "*Новый вответ принят!*\n" +
             CONTROL_MENU_INFO;
 
-    public static final String SAVED_CARD_TEXT = "*Сохранено!*\n" +
-            "Ваша карточка сохранена и \n" +
-            "отправлена на модерацию.\n" +
+    public static final String SAVED_CARD_TEXT = "*Сохранить карту?*\n" +
             "нажмите:\n" +
-            "* - Продолжить*, что бы продолжить\n" +
-            "создание карточек, либо\n" +
-            "* - Завершить*, что бы выйти.";
+            "*- Сохранить*, что бы сохранить и выйти\n" +
+            "\n" +
+            "*- Отмена*, что бы вернуться";
 
     ManageSeanceService seanceService;
     InlineKeyboardMarkup markup;
@@ -112,40 +109,45 @@ public class CreateCardEngineCommand implements Command {
             case SHOW_ANSWER:
                 return getCardByManageType(manageType).getSideB();
             case SAVED_CARD:
-               return SAVED_CARD_TEXT;
+                return SAVED_CARD_TEXT;
+            case SHOW_CONTROL_MENU:
+                return CONTROL_MENU_INFO;
         }
         return "";
     }
 
-
     private void doLogicByManageStage() {
         switch (manageStage) {
             case SHOW_START_MESSAGE:
-                makeMainEnterQuestionView();
+                makeMainEnterQuestionButtons();
                 break;
             case RECEIVED_QUESTION:
                 getCardByManageType(manageType).setSideA("`" + FrameCreator.createFrameStringMessage(userString, "║") + "`");
-                makeMainEnterAnswerView();
+                makeMainEnterAnswerButtons();
                 break;
             case RECEIVED_ANSWER:
                 getCardByManageType(manageType).setSideB("`" + FrameCreator.createFrameStringMessage(userString, "║") + "`");
-                makeMainCreateView("Просмотр");
+                makeMainCreateButtons("Просмотр");
                 break;
             case SHOW_QUESTION:
-                makeMainCreateView("✔ Ответ");
+                makeMainCreateButtons("✔ Ответ");
                 break;
             case SHOW_ANSWER:
-                makeMainCreateView("❓ Вопрос");
+                makeMainCreateButtons("❓ Вопрос");
                 break;
             case RECEIVED_EDITED_QUESTION:
                 getCardByManageType(manageType).setSideA("`" + FrameCreator.createFrameStringMessage(userString, "║") + "`");
-                makeMainCreateView("❓ Вопрос");
+                makeMainCreateButtons("❓ Вопрос");
                 break;
             case RECEIVED_EDITED_ANSWER:
                 getCardByManageType(manageType).setSideB("`" + FrameCreator.createFrameStringMessage(userString, "║") + "`");
-                makeMainCreateView("✔ Ответ");
+                makeMainCreateButtons("✔ Ответ");
                 break;
             case SAVED_CARD:
+                makeSavedMenuButtons();
+                break;
+            case SHOW_CONTROL_MENU:
+                makeMainCreateButtons("Просмотр");
                 break;
         }
     }
@@ -161,15 +163,15 @@ public class CreateCardEngineCommand implements Command {
         }
     }
 
-    private void makeMainCreateView(String button) {
+    private void makeMainCreateButtons(String button) {
         List<String> buttonNames;
         List<String> buttonQueries;
         buttonNames = Arrays.asList(button, "Сохранить", "Выход", "Изменить вопрос", "Изменить ответ");
-        buttonQueries = Arrays.asList("view_create_card_result", "save_card_command", "quit_create", "edit_question", "edit_answer");
+        buttonQueries = Arrays.asList("view_create_card_result", "SAVE_CARD", "quit_create", "edit_question", "edit_answer");
         markup = KeyboardCreator.createInlineKeyboard(buttonNames, buttonQueries);
     }
 
-    private void makeMainEnterQuestionView() {
+    private void makeMainEnterQuestionButtons() {
         List<String> buttonNames;
         List<String> buttonQueries;
         buttonNames = Arrays.asList("Ввести вопрос", "Выход");
@@ -177,7 +179,16 @@ public class CreateCardEngineCommand implements Command {
         markup = KeyboardCreator.createInlineKeyboard(buttonNames, buttonQueries);
     }
 
-    private void makeMainEnterAnswerView() {
+    private void makeSavedMenuButtons() {
+        manageSeance.setManageStage(ManageStage.SHOW_CONTROL_MENU);
+        List<String> buttonNames;
+        List<String> buttonQueries;
+        buttonNames = Arrays.asList("Сохранить", "Отмена");
+        buttonQueries = Arrays.asList("SEND_TO_MODERATE", "MANAGE_ENGINE_COMMAND");
+        markup = KeyboardCreator.createInlineKeyboard(buttonNames, buttonQueries);
+    }
+
+    private void makeMainEnterAnswerButtons() {
         List<String> buttonNames;
         List<String> buttonQueries;
         buttonNames = Arrays.asList("Ввести ответ", "Выход");

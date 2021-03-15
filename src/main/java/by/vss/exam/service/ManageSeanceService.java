@@ -32,7 +32,8 @@ public class ManageSeanceService {
     public void doManageSeanceAsNew(ManageSeance manageSeance) {
         manageSeance.setOnReceived(false);
         manageSeance.setActive(false);
-        resetCardData(manageSeance);
+        manageSeance.setJavaCard(null);
+        manageSeance.setEnglishCard(null);
         manageSeance.setUserString("");
     }
 
@@ -49,19 +50,5 @@ public class ManageSeanceService {
         ManageSeance manageSeance = new ManageSeance(id);
         manageSeanceRepository.addManageSeance(id, manageSeance);
         return manageSeance;
-    }
-
-    private void resetCardData(ManageSeance manageSeance) {
-        Card javaCard = manageSeance.getJavaCard();
-        Card englishCard = manageSeance.getEnglishCard();
-
-        if (javaCard != null) {
-            javaCard.setSideA("");
-            javaCard.setSideB("");
-        }
-        if (englishCard != null) {
-            englishCard.setSideA("");
-            englishCard.setSideB("");
-        }
     }
 }

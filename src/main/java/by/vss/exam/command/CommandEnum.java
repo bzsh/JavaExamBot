@@ -19,10 +19,6 @@ public enum CommandEnum {
     MАNAGE(new ManageMenuCommand()),
     АBOUT(new AboutCommand()),
 
-    //test menu commands
-    JAVA_TEST_COMMAND(new JavaTestCommand()),
-    ENGLISH_TEST_COMMAND(new EnglishTestCommand()),
-
     //card menu commands
     OPTIONАL(new OptionalCardsMenuCommand()),
     JAVА(new JavaCardsCommand()),
@@ -32,25 +28,26 @@ public enum CommandEnum {
     //manage menu command
     INFО(new InfoCommand()),
     CREАTE(new CreateCardCommand()),
-    CONTRОL(new ControlCommand()),
+    ЕDIT(new EditCardCommand()),
 
-    VIEW_MANAGE_SEANCE_WARNING_MENU(new ViewManageSeanceWarningMenu()),
-    VIEW_CREATE_CARD_RESULT(new ViewCreateCardResult()),
+    VIEW_MANAGE_SEANCE_WARNING_MENU(new ViewCreateSeanceWarnMenuCommand()),
+    VIEW_CREATE_CARD_RESULT(new ViewCreateCardResultCommand()),
     ENTER_QUESTION(new EnterQuestionCommand()),
     ENTER_ANSWER(new EnterAnswerCommand()),
 
-    EDIT_QUESTION(new EditQuestionCommand()),
-    EDIT_ANSWER(new EditAnswerCommand()),
+    EDIT_QUESTION(new ChangeQuestionCommand()),
+    EDIT_ANSWER(new ChangeAnswerCommand()),
 
     CREATE_ENGLISH(new CreateEnglishCardCommand()),
     CREATE_JAVA(new CreateJavaCardCommand()),
 
+    SAVE_CARD(new SaveCardCommand()),
+
+    SEND_TO_MODERATE(new SendToModerateCardCommand()),
 
     QUIT_CREATE(new QuitCreateCardCommand()),
 
-    CREATE_TEST_COMMAND(new CreateTestCommand()),
-
-    RESET_SEANCE_COMMAND(new ResetManageSeanceAndQuit()),
+    RESET_SEANCE_COMMAND(new ResetManageSeanceAndQuitCommand()),
 
     // test commands
     RESUME_TEST(new ResumeTestCommand()),
@@ -73,7 +70,6 @@ public enum CommandEnum {
     ROTATE_CARD(new RotateCardCommand()),
 
     //other commands
-    EXIT(new ExitCommand()),
     EMOJI(new EmojiCommand()),
     STATISTICS(new StatisticsCommand()),
     EXAMPLE(new ExampleCommand()),

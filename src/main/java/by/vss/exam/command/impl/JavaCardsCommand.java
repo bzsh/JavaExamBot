@@ -46,7 +46,7 @@ public class JavaCardsCommand implements Command {
             cards = cardService.getShuffledApprovedCardsList(CardType.JAVA);
         }
         if (cards.isEmpty() && study.isOptional()) {
-            String response = "У вас нет сохраненных карточек !";
+            String response = "У вас нет сохраненных Java карточек!";
             List<String> buttonNames = Arrays.asList("Назад");
             List<String> buttonQueries = Arrays.asList("Optionаl");
             InlineKeyboardMarkup markup = KeyboardCreator.createInlineKeyboard(buttonNames, buttonQueries);

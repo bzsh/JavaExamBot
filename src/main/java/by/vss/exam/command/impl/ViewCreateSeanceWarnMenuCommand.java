@@ -14,7 +14,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import java.util.Arrays;
 import java.util.List;
 
-public class ViewManageSeanceWarningMenu implements Command {
+public class ViewCreateSeanceWarnMenuCommand implements Command {
     ManageSeanceService seanceService;
     InlineKeyboardMarkup markup;
     ManageSeance manageSeance;

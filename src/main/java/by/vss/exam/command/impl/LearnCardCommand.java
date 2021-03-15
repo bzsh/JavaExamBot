@@ -41,10 +41,6 @@ public class LearnCardCommand implements Command {
         isEnglishType = cardType.equals(CardType.ENGLISH);
         isJavaType = cardType.equals(CardType.JAVA);
 
-        System.out.println("java: - " + isJavaType);
-        System.out.println("english: - " + isEnglishType);
-        System.out.println("isLearned: - " + isOnLearn);
-
         if (isOnLearn) {
             removeCardIdStatistic();
         } else {

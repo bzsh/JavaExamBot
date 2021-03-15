@@ -24,7 +24,7 @@ public class CreateJavaCardCommand implements Command {
         manageSeance = seanceService.getManageSeanceOrCreate(chatId);
 
         if (manageSeance.isActive() && !manageSeance.getManageType().equals(ManageType.CREATE_JAVA_CARD)) {
-            return new ViewManageSeanceWarningMenu().execute(message, isCallback, callbackId);
+            return new ViewCreateSeanceWarnMenuCommand().execute(message, isCallback, callbackId);
         } else if (!manageSeance.isActive()) {
             if (manageSeance.getJavaCard() == null) {
                 cardService = new CardService();

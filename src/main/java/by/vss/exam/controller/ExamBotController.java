@@ -16,6 +16,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ExamBotController extends TelegramLongPollingBot {
@@ -38,11 +39,7 @@ public class ExamBotController extends TelegramLongPollingBot {
 
     private void sendMsg(CommandResult commandResult) {
         SendMessage sendMessage = commandResult.getSendMessage();
-        try {
-            execute(sendMessage);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
+        sndMsg(sendMessage);
     }
 
     private void editMsg(CommandResult commandResult) {
@@ -73,8 +70,11 @@ public class ExamBotController extends TelegramLongPollingBot {
                 deleteMsg(commandResult);
             } else if (commandResult.hasAnswerCallbackQuery()) {
                 sendAnswerCallback(commandResult);
+            } else if (commandResult.hasSendMessages()) {
+                sendMessageToSeveralUsers(commandResult);
             }
         }
+
     }
 
     public void sendAnswerCallback(CommandResult result) {
@@ -135,5 +135,18 @@ public class ExamBotController extends TelegramLongPollingBot {
     @Override
     public String getBotToken() {
         return bundle.getString(ConstantHolder.BOT_TOKEN);
+    }
+
+    public void sendMessageToSeveralUsers(CommandResult commandResult) {
+        List<SendMessage> sendMessages = commandResult.getSendMessages();
+        sendMessages.forEach(this::sndMsg);
+    }
+
+    private void sndMsg(SendMessage sendMessage) {
+        try {
+            execute(sendMessage);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
     }
 }

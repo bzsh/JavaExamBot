@@ -3,6 +3,7 @@ package by.vss.exam.bean.manage;
 public enum ManageStage {
     SHOW_START_MESSAGE,
     SHOW_FINAL_MESSAGE,
+    SHOW_CONTROL_MENU,
 
     RECEIVED_QUESTION,
     RECEIVED_ANSWER,

@@ -4,7 +4,7 @@ import by.vss.exam.command.Command;
 import by.vss.exam.command.CommandResult;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
-public class CreateTestCommand implements Command {
+public class EditJavaCardCommand implements Command {
     @Override
     public CommandResult execute(Message message, boolean isCallback, String callbackId) {
         return null;

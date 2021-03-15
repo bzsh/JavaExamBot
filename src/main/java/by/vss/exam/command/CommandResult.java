@@ -5,11 +5,14 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 
+import java.util.List;
+
 public class CommandResult {
     private SendMessage sendMessage;
     private EditMessageText editMessage;
     private DeleteMessage deleteMessage;
     private AnswerCallbackQuery answerCallbackQuery;
+    private List<SendMessage> sendMessages;
 
     public CommandResult(SendMessage sendMessage) {
         this.sendMessage = sendMessage;
@@ -27,6 +30,14 @@ public class CommandResult {
         this.answerCallbackQuery = answerCallbackQuery;
     }
 
+    public CommandResult(List<SendMessage> sendMessages) {
+        this.sendMessages = sendMessages;
+    }
+
+    public boolean hasSendMessages() {
+        return sendMessages != null;
+    }
+
     public boolean hasAnswerCallbackQuery() {
         return answerCallbackQuery != null;
     }
@@ -41,6 +52,10 @@ public class CommandResult {
 
     public boolean hasDeleteMessage() {
         return deleteMessage != null;
+    }
+
+    public List<SendMessage> getSendMessages() {
+        return sendMessages;
     }
 
     public AnswerCallbackQuery getAnswerCallbackQuery() {

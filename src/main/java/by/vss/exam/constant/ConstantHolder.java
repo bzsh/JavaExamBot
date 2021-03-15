@@ -15,8 +15,7 @@ public final class ConstantHolder {
     //TaskTestService settings
     public static final String NUM_OF_TASKS = "num.of.tasks";
     //Admin settings
-    public static final String ADMIN_LOGIN = "admin.login";
-    public static final String ADMIN_PASSWORD = "admin.password";
+    public static final String ADMIN_ID = "admin.id";
     //Repository settings
     public static final Long LAST_GENERATED_ID_CARD = -3L;
 }
