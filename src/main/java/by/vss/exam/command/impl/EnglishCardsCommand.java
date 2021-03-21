@@ -1,17 +1,17 @@
 package by.vss.exam.command.impl;
 
-import by.vss.exam.bean.Card;
-import by.vss.exam.bean.CardType;
-import by.vss.exam.bean.Statistic;
-import by.vss.exam.bean.User;
+import by.vss.exam.bean.card.Card;
+import by.vss.exam.bean.card.CardType;
+import by.vss.exam.bean.user.statistic.Statistic;
+import by.vss.exam.bean.user.User;
 import by.vss.exam.bean.study.CardStudy;
 import by.vss.exam.command.Command;
 import by.vss.exam.command.CommandResult;
 import by.vss.exam.service.CardService;
 import by.vss.exam.service.CardStudyService;
 import by.vss.exam.service.UserService;
-import by.vss.exam.utill.creator.KeyboardCreator;
-import by.vss.exam.utill.creator.SendMessageCreator;
+import by.vss.exam.utill.creator.keyboard.KeyboardCreator;
+import by.vss.exam.utill.creator.message.SendMessageCreator;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 
@@ -38,7 +38,7 @@ public class EnglishCardsCommand implements Command {
         if (study.isOptional()) {
             userService = new UserService();
             user = userService.getUser(chatId);
-            userStatistics = user.getStatistics();
+            userStatistics = user.getUserStatistic();
             cards = cardService.getUserCards(userStatistics.getOnLearnEnglishCard(), CardType.ENGLISH);
         } else {
             cards = cardService.getShuffledApprovedCardsList(CardType.ENGLISH);

@@ -2,9 +2,9 @@ package by.vss.exam.command.impl;
 
 import by.vss.exam.command.Command;
 import by.vss.exam.command.CommandResult;
-import by.vss.exam.utill.creator.DeleteMessageCreator;
-import by.vss.exam.utill.creator.EditMessageTextCreator;
-import by.vss.exam.utill.creator.KeyboardCreator;
+import by.vss.exam.utill.creator.message.DeleteMessageCreator;
+import by.vss.exam.utill.creator.message.EditMessageTextCreator;
+import by.vss.exam.utill.creator.keyboard.KeyboardCreator;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;

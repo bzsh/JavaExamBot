@@ -1,6 +1,6 @@
 package by.vss.exam.bean.study;
 
-import by.vss.exam.bean.Card;
+import by.vss.exam.bean.card.Card;
 
 import java.util.List;
 import java.util.Objects;

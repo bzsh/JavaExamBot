@@ -1,9 +1,9 @@
 package by.vss.exam.service;
 
-import by.vss.exam.bean.Task;
+import by.vss.exam.bean.task.Task;
 import by.vss.exam.exception.ExamRepositoryException;
 import by.vss.exam.repository.TaskRepository;
-import by.vss.exam.utill.Shuffler;
+import by.vss.exam.utill.shuffle.Shuffler;
 
 import java.util.*;
 

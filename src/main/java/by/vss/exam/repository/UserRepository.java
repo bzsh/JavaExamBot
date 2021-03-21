@@ -1,24 +1,23 @@
 package by.vss.exam.repository;
 
-import by.vss.exam.bean.User;
+import by.vss.exam.bean.user.User;
 import by.vss.exam.constant.ConstantHolder;
 import by.vss.exam.exception.ExamRepositoryException;
+import by.vss.exam.repository.json.UniversalJsonReaderWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.ResourceBundle;
 
 public class UserRepository {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserRepository.class);
     private static final UserRepository INSTANCE = new UserRepository();
-    private final ResourceBundle bundle = ResourceBundle.getBundle(ConstantHolder.BOT_PROPERTIES);
-    private HashMap<Long, User> users;
+    private final UniversalJsonReaderWriter<User> userReaderWriter = new UniversalJsonReaderWriter<>(ConstantHolder.USER_PATH, User.class);
+    private HashMap<Long, User> users = userReaderWriter.getAllFromFile();
 
     private UserRepository() {
-        users = new HashMap<>();
     }
 
     public static UserRepository getInstance() {
@@ -55,5 +54,9 @@ public class UserRepository {
         } else {
             throw new ExamRepositoryException("Repository doesn't have any user to remove");
         }
+    }
+
+    public void saveAllToFile() {
+        userReaderWriter.addAllToFile(users);
     }
 }

@@ -14,6 +14,11 @@ public class CommandResult {
     private AnswerCallbackQuery answerCallbackQuery;
     private List<SendMessage> sendMessages;
 
+    public CommandResult(DeleteMessage deleteMessage, SendMessage sendMessage) {
+        this.sendMessage = sendMessage;
+        this.deleteMessage = deleteMessage;
+    }
+
     public CommandResult(SendMessage sendMessage) {
         this.sendMessage = sendMessage;
     }
@@ -24,6 +29,16 @@ public class CommandResult {
 
     public CommandResult(DeleteMessage deleteMessage) {
         this.deleteMessage = deleteMessage;
+    }
+
+    public CommandResult(SendMessage sendMessage, AnswerCallbackQuery answerCallbackQuery) {
+        this.sendMessage = sendMessage;
+        this.answerCallbackQuery = answerCallbackQuery;
+    }
+
+    public CommandResult(EditMessageText editMessage, AnswerCallbackQuery answerCallbackQuery) {
+        this.editMessage = editMessage;
+        this.answerCallbackQuery = answerCallbackQuery;
     }
 
     public CommandResult(AnswerCallbackQuery answerCallbackQuery) {

@@ -1,17 +1,17 @@
 package by.vss.exam.command.impl;
 
-import by.vss.exam.bean.Card;
-import by.vss.exam.bean.manage.ManageSeance;
-import by.vss.exam.bean.manage.ManageType;
-import by.vss.exam.bean.manage.ManageStage;
+import by.vss.exam.bean.card.Card;
+import by.vss.exam.bean.manage.createCard.CreateCardSeance;
+import by.vss.exam.bean.manage.createCard.CreateCardType;
+import by.vss.exam.bean.manage.createCard.CreateCardStage;
 import by.vss.exam.command.Command;
 import by.vss.exam.command.CommandResult;
 import by.vss.exam.service.CardService;
-import by.vss.exam.service.ManageSeanceService;
-import by.vss.exam.utill.creator.EditMessageTextCreator;
-import by.vss.exam.utill.creator.FrameCreator;
-import by.vss.exam.utill.creator.KeyboardCreator;
-import by.vss.exam.utill.creator.SendMessageCreator;
+import by.vss.exam.service.CreateCardSeanceService;
+import by.vss.exam.utill.creator.message.EditMessageTextCreator;
+import by.vss.exam.utill.creator.frame.FrameCreator;
+import by.vss.exam.utill.creator.keyboard.KeyboardCreator;
+import by.vss.exam.utill.creator.message.SendMessageCreator;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -59,11 +59,11 @@ public class CreateCardEngineCommand implements Command {
             "\n" +
             "*- Отмена*, что бы вернуться";
 
-    ManageSeanceService seanceService;
+    CreateCardSeanceService seanceService;
     InlineKeyboardMarkup markup;
-    ManageSeance manageSeance;
-    ManageStage manageStage;
-    ManageType manageType;
+    CreateCardSeance createCardSeance;
+    CreateCardStage createCardStage;
+    CreateCardType createCardType;
     String userString;
     Integer messageId;
     String response;
@@ -77,25 +77,24 @@ public class CreateCardEngineCommand implements Command {
         chatId = message.getChatId();
         messageId = message.getMessageId();
         cardService = new CardService();
-        seanceService = new ManageSeanceService();
-        manageSeance = seanceService.getManageSeanceOrCreate(chatId);
-        javaCard = manageSeance.getJavaCard();
-        englishCard = manageSeance.getEnglishCard();
-        manageType = manageSeance.getManageType();
-        manageStage = manageSeance.getManageStage();
-        userString = manageSeance.getUserString();
+        seanceService = new CreateCardSeanceService();
+        createCardSeance = seanceService.getCreateCardSeanceOrCreate(chatId);
+        javaCard = createCardSeance.getJavaCard();
+        englishCard = createCardSeance.getEnglishCard();
+        createCardType = createCardSeance.getCreateCardType();
+        createCardStage = createCardSeance.getCreateCardStage();
+        userString = createCardSeance.getUserString();
 
-        response = getResponseByManageStage();
-        doLogicByManageStage();
+        response = getResponseByCreateCardStage();
+        doLogicByCreateCardStage();
 
         return getResultOfCallback(isCallback, response);
     }
 
-    private String getResponseByManageStage() {
-        switch (manageStage) {
+    private String getResponseByCreateCardStage() {
+        switch (createCardStage) {
             case SHOW_START_MESSAGE:
-                return manageType.getStringOf() +
-                        CREATING_GREETINGS_TEXT;
+                return CREATING_GREETINGS_TEXT;
             case RECEIVED_QUESTION:
                 return SUCCESSFUL_ENTERING_TEXT;
             case RECEIVED_ANSWER:
@@ -105,9 +104,9 @@ public class CreateCardEngineCommand implements Command {
             case RECEIVED_EDITED_ANSWER:
                 return EDITING_ANSWER_TEXT;
             case SHOW_QUESTION:
-                return getCardByManageType(manageType).getSideA();
+                return getCardByCreateCardType(createCardType).getSideA();
             case SHOW_ANSWER:
-                return getCardByManageType(manageType).getSideB();
+                return getCardByCreateCardType(createCardType).getSideB();
             case SAVED_CARD:
                 return SAVED_CARD_TEXT;
             case SHOW_CONTROL_MENU:
@@ -116,17 +115,17 @@ public class CreateCardEngineCommand implements Command {
         return "";
     }
 
-    private void doLogicByManageStage() {
-        switch (manageStage) {
+    private void doLogicByCreateCardStage() {
+        switch (createCardStage) {
             case SHOW_START_MESSAGE:
                 makeMainEnterQuestionButtons();
                 break;
             case RECEIVED_QUESTION:
-                getCardByManageType(manageType).setSideA("`" + FrameCreator.createFrameStringMessage(userString, "║") + "`");
+                getCardByCreateCardType(createCardType).setSideA("`" + FrameCreator.createFrameStringMessage(userString, "║") + "`");
                 makeMainEnterAnswerButtons();
                 break;
             case RECEIVED_ANSWER:
-                getCardByManageType(manageType).setSideB("`" + FrameCreator.createFrameStringMessage(userString, "║") + "`");
+                getCardByCreateCardType(createCardType).setSideB("`" + FrameCreator.createFrameStringMessage(userString, "║") + "`");
                 makeMainCreateButtons("Просмотр");
                 break;
             case SHOW_QUESTION:
@@ -136,11 +135,11 @@ public class CreateCardEngineCommand implements Command {
                 makeMainCreateButtons("❓ Вопрос");
                 break;
             case RECEIVED_EDITED_QUESTION:
-                getCardByManageType(manageType).setSideA("`" + FrameCreator.createFrameStringMessage(userString, "║") + "`");
+                getCardByCreateCardType(createCardType).setSideA("`" + FrameCreator.createFrameStringMessage(userString, "║") + "`");
                 makeMainCreateButtons("❓ Вопрос");
                 break;
             case RECEIVED_EDITED_ANSWER:
-                getCardByManageType(manageType).setSideB("`" + FrameCreator.createFrameStringMessage(userString, "║") + "`");
+                getCardByCreateCardType(createCardType).setSideB("`" + FrameCreator.createFrameStringMessage(userString, "║") + "`");
                 makeMainCreateButtons("✔ Ответ");
                 break;
             case SAVED_CARD:
@@ -152,8 +151,8 @@ public class CreateCardEngineCommand implements Command {
         }
     }
 
-    private Card getCardByManageType(ManageType manageType) {
-        switch (manageType) {
+    private Card getCardByCreateCardType(CreateCardType createCardType) {
+        switch (createCardType) {
             case CREATE_JAVA_CARD:
                 return javaCard;
             case CREATE_ENGLISH_CARD:
@@ -167,7 +166,7 @@ public class CreateCardEngineCommand implements Command {
         List<String> buttonNames;
         List<String> buttonQueries;
         buttonNames = Arrays.asList(button, "Сохранить", "Выход", "Изменить вопрос", "Изменить ответ");
-        buttonQueries = Arrays.asList("view_create_card_result", "SAVE_CARD", "quit_create", "edit_question", "edit_answer");
+        buttonQueries = Arrays.asList("ROTATE_AND_VIEW_CREATE_CARD", "SAVE_CARD", "QUIT_CREATE", "EDIT_QUESTION", "EDIT_ANSWER");
         markup = KeyboardCreator.createInlineKeyboard(buttonNames, buttonQueries);
     }
 
@@ -175,12 +174,12 @@ public class CreateCardEngineCommand implements Command {
         List<String> buttonNames;
         List<String> buttonQueries;
         buttonNames = Arrays.asList("Ввести вопрос", "Выход");
-        buttonQueries = Arrays.asList("enter_question", "quit_create");
+        buttonQueries = Arrays.asList("ENTER_QUESTION", "QUIT_CREATE");
         markup = KeyboardCreator.createInlineKeyboard(buttonNames, buttonQueries);
     }
 
     private void makeSavedMenuButtons() {
-        manageSeance.setManageStage(ManageStage.SHOW_CONTROL_MENU);
+        createCardSeance.setCreateCardStage(CreateCardStage.SHOW_CONTROL_MENU);
         List<String> buttonNames;
         List<String> buttonQueries;
         buttonNames = Arrays.asList("Сохранить", "Отмена");
@@ -192,7 +191,7 @@ public class CreateCardEngineCommand implements Command {
         List<String> buttonNames;
         List<String> buttonQueries;
         buttonNames = Arrays.asList("Ввести ответ", "Выход");
-        buttonQueries = Arrays.asList("enter_answer", "quit_create");
+        buttonQueries = Arrays.asList("ENTER_ANSWER", "QUIT_CREATE");
         markup = KeyboardCreator.createInlineKeyboard(buttonNames, buttonQueries);
     }
 

@@ -1,22 +1,22 @@
 package by.vss.exam.command.impl;
 
-import by.vss.exam.bean.manage.ManageSeance;
+import by.vss.exam.bean.manage.createCard.CreateCardSeance;
 import by.vss.exam.command.Command;
 import by.vss.exam.command.CommandResult;
-import by.vss.exam.service.ManageSeanceService;
+import by.vss.exam.service.CreateCardSeanceService;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
 public class ResetManageSeanceAndQuitCommand implements Command {
-    ManageSeanceService seanceService;
-    ManageSeance manageSeance;
+    CreateCardSeanceService seanceService;
+    CreateCardSeance createCardSeance;
     Long chatId;
 
     @Override
     public CommandResult execute(Message message, boolean isCallback, String callbackId) {
         chatId = message.getChatId();
-        seanceService = new ManageSeanceService();
-        manageSeance = seanceService.getManageSeanceOrCreate(chatId);
-        seanceService.doManageSeanceAsNew(manageSeance);
+        seanceService = new CreateCardSeanceService();
+        createCardSeance = seanceService.getCreateCardSeanceOrCreate(chatId);
+        seanceService.doCreateCardSeanceAsNew(createCardSeance);
         return new QuitCreateCardCommand().execute(message, isCallback, callbackId);
     }
 }

@@ -1,16 +1,16 @@
 package by.vss.exam.command.impl;
 
-import by.vss.exam.bean.manage.ManageSeance;
-import by.vss.exam.bean.manage.ManageStage;
+import by.vss.exam.bean.manage.createCard.CreateCardSeance;
+import by.vss.exam.bean.manage.createCard.CreateCardStage;
 import by.vss.exam.command.Command;
 import by.vss.exam.command.CommandResult;
-import by.vss.exam.service.ManageSeanceService;
-import by.vss.exam.utill.creator.EditMessageTextCreator;
+import by.vss.exam.service.CreateCardSeanceService;
+import by.vss.exam.utill.creator.message.EditMessageTextCreator;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
 public class ChangeAnswerCommand implements Command {
-    ManageSeanceService seanceService;
-    ManageSeance manageSeance;
+    CreateCardSeanceService seanceService;
+    CreateCardSeance createCardSeance;
     Integer messageId;
     Long chatId;
 
@@ -18,10 +18,10 @@ public class ChangeAnswerCommand implements Command {
     public CommandResult execute(Message message, boolean isCallback, String callbackId) {
         chatId = message.getChatId();
         messageId = message.getMessageId();
-        seanceService = new ManageSeanceService();
-        manageSeance = seanceService.getManageSeanceOrCreate(chatId);
-        manageSeance.setOnReceived(true);
-        manageSeance.setManageStage(ManageStage.RECEIVED_EDITED_ANSWER);
+        seanceService = new CreateCardSeanceService();
+        createCardSeance = seanceService.getCreateCardSeanceOrCreate(chatId);
+        createCardSeance.setOnReceived(true);
+        createCardSeance.setCreateCardStage(CreateCardStage.RECEIVED_EDITED_ANSWER);
         String response = " - Введите новый ответ";
         return new CommandResult(EditMessageTextCreator.createEditMessage(chatId, messageId, response));
     }

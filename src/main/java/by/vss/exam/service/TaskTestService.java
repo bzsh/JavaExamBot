@@ -1,6 +1,6 @@
 package by.vss.exam.service;
 
-import by.vss.exam.bean.Task;
+import by.vss.exam.bean.task.Task;
 import by.vss.exam.bean.test.TaskTest;
 import by.vss.exam.constant.ConstantHolder;
 import by.vss.exam.exception.ExamRepositoryException;

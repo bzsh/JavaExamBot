@@ -1,6 +1,6 @@
 package by.vss.exam.bean.test;
 
-import by.vss.exam.bean.Task;
+import by.vss.exam.bean.task.Task;
 
 import java.util.List;
 import java.util.Objects;

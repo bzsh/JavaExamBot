@@ -1,7 +1,7 @@
 package by.vss.exam.service;
 
-import by.vss.exam.bean.Card;
-import by.vss.exam.bean.CardType;
+import by.vss.exam.bean.card.Card;
+import by.vss.exam.bean.card.CardType;
 import by.vss.exam.bean.study.CardStudy;
 import by.vss.exam.constant.ConstantHolder;
 import by.vss.exam.exception.ExamRepositoryException;
@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class CardStudyService {
-    public static final ResourceBundle bundle = ResourceBundle.getBundle(ConstantHolder.BOT_PROPERTIES);
     public static final Logger LOGGER = LoggerFactory.getLogger(CardStudyService.class);
     CardStudyRepository cardStudyRepository = CardStudyRepository.getInstance();
     CardService cardService = new CardService();

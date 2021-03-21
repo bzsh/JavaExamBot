@@ -1,9 +1,9 @@
 package by.vss.exam.command.impl;
 
-import by.vss.exam.bean.Card;
-import by.vss.exam.bean.CardType;
-import by.vss.exam.bean.Statistic;
-import by.vss.exam.bean.User;
+import by.vss.exam.bean.card.Card;
+import by.vss.exam.bean.card.CardType;
+import by.vss.exam.bean.user.statistic.Statistic;
+import by.vss.exam.bean.user.User;
 import by.vss.exam.bean.study.CardStudy;
 import by.vss.exam.command.Command;
 import by.vss.exam.command.CommandResult;
@@ -36,7 +36,7 @@ public class LearnCardCommand implements Command {
         this.cardType = card.getCardType();
         this.user = userService.getUser(chatId);
         this.cardId = card.getCardId();
-        this.userStatistic = user.getStatistics();
+        this.userStatistic = user.getUserStatistic();
         boolean isOnLearn = getCardIsLearned();
         isEnglishType = cardType.equals(CardType.ENGLISH);
         isJavaType = cardType.equals(CardType.JAVA);

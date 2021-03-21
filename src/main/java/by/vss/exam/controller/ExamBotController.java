@@ -62,14 +62,14 @@ public class ExamBotController extends TelegramLongPollingBot {
 
     private void executeCommandResult(CommandResult commandResult) {
         if (commandResult != null) {
-            if (commandResult.hasSendMessage()) {
-                sendMsg(commandResult);
+            if (commandResult.hasAnswerCallbackQuery()) {
+                sendAnswerCallback(commandResult);
             } else if (commandResult.hasEditMessage()) {
                 editMsg(commandResult);
             } else if (commandResult.hasDeleteMessage()) {
                 deleteMsg(commandResult);
-            } else if (commandResult.hasAnswerCallbackQuery()) {
-                sendAnswerCallback(commandResult);
+            } else if (commandResult.hasSendMessage()) {
+                sendMsg(commandResult);
             } else if (commandResult.hasSendMessages()) {
                 sendMessageToSeveralUsers(commandResult);
             }
@@ -79,6 +79,12 @@ public class ExamBotController extends TelegramLongPollingBot {
 
     public void sendAnswerCallback(CommandResult result) {
         AnswerCallbackQuery answer = result.getAnswerCallbackQuery();
+        if (result.hasEditMessage()) {
+            editMsg(result);
+        }
+        if (result.hasSendMessage()) {
+            sendMsg(result);
+        }
         try {
             execute(answer);
         } catch (TelegramApiException e) {

@@ -1,14 +1,12 @@
 package by.vss.exam.service;
 
-import by.vss.exam.bean.Card;
-import by.vss.exam.bean.CardType;
-import by.vss.exam.bean.test.TaskTest;
+import by.vss.exam.bean.card.Card;
+import by.vss.exam.bean.card.CardType;
 import by.vss.exam.exception.ExamRepositoryException;
 import by.vss.exam.repository.EnglishCardRepository;
 import by.vss.exam.repository.JavaCardRepository;
 import by.vss.exam.repository.Repository;
-import by.vss.exam.utill.Shuffler;
-import com.fasterxml.jackson.databind.node.LongNode;
+import by.vss.exam.utill.shuffle.Shuffler;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,6 @@
 package by.vss.exam.repository;
 
-import by.vss.exam.bean.Card;
+import by.vss.exam.bean.card.Card;
 import by.vss.exam.constant.ConstantHolder;
 import by.vss.exam.exception.ExamRepositoryException;
 import by.vss.exam.repository.json.UniversalJsonReaderWriter;
@@ -72,7 +72,6 @@ public class EnglishCardRepository implements Repository<Card> {
 
     @Override
     public void saveAllToFile() {
-        System.out.println(cards.size());
         cardReaderWriter.addAllToFile(cards);
     }
 

@@ -8,6 +8,7 @@ public enum CommandEnum {
     START(new StartCommand()),
 
     //engine command
+    EDIT_ENGINE_COMMAND(new EditEngineCommand()),
     CARD_ENGINE_COMMAND(new CardEngineCommand()),
     TEST_ENGINE_COMMAND(new TestEngineCommand()),
     MANAGE_ENGINE_COMMAND(new CreateCardEngineCommand()),
@@ -31,23 +32,41 @@ public enum CommandEnum {
     ЕDIT(new EditCardCommand()),
 
     VIEW_MANAGE_SEANCE_WARNING_MENU(new ViewCreateSeanceWarnMenuCommand()),
-    VIEW_CREATE_CARD_RESULT(new ViewCreateCardResultCommand()),
+    ROTATE_AND_VIEW_CREATE_CARD(new RotateAndViewCreateCardCommand()),
+    ROTATE_AND_VIEW_EDIT_CARD(new RotateAndViewEditCardCommand()),
     ENTER_QUESTION(new EnterQuestionCommand()),
     ENTER_ANSWER(new EnterAnswerCommand()),
 
     EDIT_QUESTION(new ChangeQuestionCommand()),
     EDIT_ANSWER(new ChangeAnswerCommand()),
 
+    // create card commands
     CREATE_ENGLISH(new CreateEnglishCardCommand()),
     CREATE_JAVA(new CreateJavaCardCommand()),
 
     SAVE_CARD(new SaveCardCommand()),
 
-    SEND_TO_MODERATE(new SendToModerateCardCommand()),
+    SEND_TO_MODERATE_CREATED_CARD(new SendToModerateCreatedCardCommand()),
+    SEND_TO_MODERATE_EDITED_CARD(new SendToModerateEditedCardCommand()),
 
     QUIT_CREATE(new QuitCreateCardCommand()),
 
     RESET_SEANCE_COMMAND(new ResetManageSeanceAndQuitCommand()),
+
+    //edit card commands
+    EDIT_ENGLISH(new EditEnglishCardCommand()),
+    EDIT_JAVA(new EditJavaCardCommand()),
+    EDIT_USER(new EditUserCommand()),
+
+    PRINT_LIST(new PrintListCommand()),
+
+    PRINT_USER(new PrintUserCommand()),
+    PRINT_JAVA(new PrintJavaCommand()),
+    PRINT_ENGLISH(new PrintEnglishCommand()),
+
+    NEXT_COMMAND(new NextCommand()),
+    PREV_COMMAND(new PrevCommand()),
+
 
     // test commands
     RESUME_TEST(new ResumeTestCommand()),

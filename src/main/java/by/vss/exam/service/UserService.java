@@ -1,9 +1,12 @@
 package by.vss.exam.service;
 
-import by.vss.exam.bean.User;
-import by.vss.exam.bean.role.UserRole;
+import by.vss.exam.bean.user.User;
+import by.vss.exam.bean.user.UserRole;
+import by.vss.exam.bean.user.statistic.Statistic;
 import by.vss.exam.exception.ExamRepositoryException;
 import by.vss.exam.repository.UserRepository;
+
+import java.util.List;
 
 public class UserService {
     UserRepository userRepository = UserRepository.getInstance();
@@ -13,6 +16,7 @@ public class UserService {
     }
 
     public User getUserOrCreate(Long id, String firstName, String lastName, String userName, UserRole role) {
+
         if (containsUser(id)) {
             return getUserFromRepository(id);
         } else {
@@ -20,6 +24,16 @@ public class UserService {
             userRepository.addUser(id, user);
             return user;
         }
+    }
+
+    public List<User> getAllUsers() {
+        List<User> users = null;
+        try {
+            users =  userRepository.getAll();
+        } catch (ExamRepositoryException e) {
+            e.printStackTrace();
+        }
+        return users;
     }
 
     private boolean containsUser(Long id) {

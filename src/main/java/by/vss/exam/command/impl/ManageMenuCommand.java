@@ -1,11 +1,11 @@
 package by.vss.exam.command.impl;
 
-import by.vss.exam.bean.manage.ManageSeance;
+import by.vss.exam.bean.manage.createCard.CreateCardSeance;
 import by.vss.exam.command.Command;
 import by.vss.exam.command.CommandResult;
-import by.vss.exam.service.ManageSeanceService;
-import by.vss.exam.utill.creator.KeyboardCreator;
-import by.vss.exam.utill.creator.SendMessageCreator;
+import by.vss.exam.service.CreateCardSeanceService;
+import by.vss.exam.utill.creator.keyboard.KeyboardCreator;
+import by.vss.exam.utill.creator.message.SendMessageCreator;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
@@ -14,15 +14,15 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ManageMenuCommand implements Command {
-    ManageSeanceService seanceService;
-    ManageSeance manageSeance;
+    CreateCardSeanceService seanceService;
+    CreateCardSeance createCardSeance;
     Long chatId;
 
     @Override
     public CommandResult execute(Message message, boolean isCallback, String callbackId) {
         chatId = message.getChatId();
-        seanceService = new ManageSeanceService();
-        manageSeance = seanceService.getManageSeanceOrCreate(chatId);
+        seanceService = new CreateCardSeanceService();
+        createCardSeance = seanceService.getCreateCardSeanceOrCreate(chatId);
 
         String menu =
                 "*Меню уравления*\n\n" +

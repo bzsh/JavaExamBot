@@ -1,15 +1,11 @@
 package by.vss.exam.command.impl;
 
-import by.vss.exam.bean.Card;
-import by.vss.exam.bean.CardType;
 import by.vss.exam.bean.study.CardStudy;
 import by.vss.exam.command.Command;
 import by.vss.exam.command.CommandResult;
 import by.vss.exam.service.CardStudyService;
 import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
-
-import java.util.Random;
 
 public class PrevCardCommand implements Command {
     CardStudyService studyService;

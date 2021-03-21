@@ -1,16 +1,14 @@
 package by.vss.exam.command.impl;
 
-import by.vss.exam.bean.User;
+import by.vss.exam.bean.user.User;
 import by.vss.exam.bean.test.TaskTest;
 import by.vss.exam.command.Command;
 import by.vss.exam.command.CommandResult;
 import by.vss.exam.constant.ConstantHolder;
 import by.vss.exam.service.TaskTestService;
 import by.vss.exam.service.UserService;
-import by.vss.exam.utill.creator.KeyboardCreator;
-import by.vss.exam.utill.creator.SendMessageCreator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import by.vss.exam.utill.creator.keyboard.KeyboardCreator;
+import by.vss.exam.utill.creator.message.SendMessageCreator;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;

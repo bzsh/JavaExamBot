@@ -1,6 +1,6 @@
 package by.vss.exam.repository;
 
-import by.vss.exam.bean.Task;
+import by.vss.exam.bean.task.Task;
 import by.vss.exam.constant.ConstantHolder;
 import by.vss.exam.exception.ExamRepositoryException;
 import by.vss.exam.repository.json.UniversalJsonReaderWriter;

@@ -1,0 +1,19 @@
+package by.vss.exam.bean.manage.createCard;
+
+public enum CreateCardStage {
+    SHOW_START_MESSAGE,
+    SHOW_FINAL_MESSAGE,
+    SHOW_CONTROL_MENU,
+
+    RECEIVED_QUESTION,
+    RECEIVED_ANSWER,
+
+    RECEIVED_EDITED_QUESTION,
+    RECEIVED_EDITED_ANSWER,
+
+    SAVED_CARD,
+
+    SHOW_QUESTION,
+    SHOW_ANSWER,
+
+}
