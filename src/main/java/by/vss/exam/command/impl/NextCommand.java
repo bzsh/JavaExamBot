@@ -30,12 +30,6 @@ public class NextCommand implements Command {
         editCardStage = editCardSeance.getEditCardStage();
         editCardType = editCardSeance.getEditCardType();
 
-        if (editCardStage.equals(EditCardStage.SHOW_EDIT_USER_START_MESSAGE) ||
-                editCardStage.equals(EditCardStage.SHOW_EDIT_CARD_START_MESSAGE)) {
-            editCardSeance.setEditCardStage(EditCardStage.SHOW_USER);
-            return new EditEngineCommand().execute(message, isCallback, callbackId);
-        }
-
         if (editCardType.equals(EditCardType.EDIT_USER_DATA)) {
             return getNextUser();
         } else {
@@ -69,6 +63,10 @@ public class NextCommand implements Command {
             editCardSeance.setEditCardStage(EditCardStage.SHOW_USER);
             return new EditEngineCommand().execute(message, isCallback, callbackId);
         } else {
+            if (editCardStage.equals(EditCardStage.SHOW_EDIT_USER_START_MESSAGE)) {
+                editCardSeance.setEditCardStage(EditCardStage.SHOW_USER);
+                return new EditEngineCommand().execute(message, isCallback, callbackId);
+            }
             return getCallBackCommand(callbackId, text);
         }
     }

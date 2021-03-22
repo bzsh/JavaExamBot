@@ -137,10 +137,10 @@ public class EditEngineCommand implements Command {
     }
 
     private String getCardInfo() {
-        return "*Card_Id / Creator_Id / Is_Approved*\n" +
-                currentCard.getCardId() +
-                "/" + currentCard.getCreatorId() +
-                "/" + currentCard.isApproved() + "\n";
+        String isApproved = currentCard.isApproved() ? "*Approved*" : "*Disapproved*";
+        return "*CardId*: " + currentCard.getCardId() + "/" +
+                "*Creator*: " + currentCard.getCreatorId() + "/" +
+                isApproved + "\n";
     }
 
     private String getQuestionByUserRole() {

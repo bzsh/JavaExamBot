@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
+import org.telegram.telegrambots.meta.api.methods.send.SendChatAction;
+import org.telegram.telegrambots.meta.api.methods.send.SendDice;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
@@ -62,7 +64,9 @@ public class ExamBotController extends TelegramLongPollingBot {
 
     private void executeCommandResult(CommandResult commandResult) {
         if (commandResult != null) {
-            if (commandResult.hasAnswerCallbackQuery()) {
+            if (commandResult.hasDeleteAndSendMessages()) {
+                deleteAndSendMessage(commandResult);
+            } else if (commandResult.hasAnswerCallbackQuery()) {
                 sendAnswerCallback(commandResult);
             } else if (commandResult.hasEditMessage()) {
                 editMsg(commandResult);
@@ -77,7 +81,7 @@ public class ExamBotController extends TelegramLongPollingBot {
 
     }
 
-    public void sendAnswerCallback(CommandResult result) {
+    private void sendAnswerCallback(CommandResult result) {
         AnswerCallbackQuery answer = result.getAnswerCallbackQuery();
         if (result.hasEditMessage()) {
             editMsg(result);
@@ -143,9 +147,14 @@ public class ExamBotController extends TelegramLongPollingBot {
         return bundle.getString(ConstantHolder.BOT_TOKEN);
     }
 
-    public void sendMessageToSeveralUsers(CommandResult commandResult) {
+    private void sendMessageToSeveralUsers(CommandResult commandResult) {
         List<SendMessage> sendMessages = commandResult.getSendMessages();
         sendMessages.forEach(this::sndMsg);
+    }
+
+    private void deleteAndSendMessage(CommandResult commandResult) {
+        deleteMsg(commandResult);
+        sendMsg(commandResult);
     }
 
     private void sndMsg(SendMessage sendMessage) {

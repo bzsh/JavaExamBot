@@ -2,10 +2,12 @@ package by.vss.exam.command.impl;
 
 import by.vss.exam.command.Command;
 import by.vss.exam.command.CommandResult;
+import by.vss.exam.utill.creator.message.DeleteMessageCreator;
 import by.vss.exam.utill.creator.message.EditMessageTextCreator;
 import by.vss.exam.utill.creator.keyboard.KeyboardCreator;
 import by.vss.exam.utill.creator.message.SendMessageCreator;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
@@ -27,7 +29,7 @@ public class QuitCreateCardCommand implements Command {
         List<String> buttonNames = Arrays.asList("В меню");
         List<String> buttonQueries = Arrays.asList("Mаnage");
         markup = KeyboardCreator.createInlineKeyboard(buttonNames, buttonQueries);
-        return getResultOfCallback(isCallback, response);
+         return getResultOfCallback(isCallback, response);
     }
 
     private CommandResult getResultOfCallback(boolean isCallback, String text) {

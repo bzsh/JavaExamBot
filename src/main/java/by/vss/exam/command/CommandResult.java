@@ -69,6 +69,10 @@ public class CommandResult {
         return deleteMessage != null;
     }
 
+    public boolean hasDeleteAndSendMessages() {
+        return deleteMessage != null && sendMessage != null;
+    }
+
     public List<SendMessage> getSendMessages() {
         return sendMessages;
     }
