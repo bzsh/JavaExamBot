@@ -6,7 +6,7 @@ import by.vss.exam.command.CommandResult;
 import by.vss.exam.service.CreateCardSeanceService;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
-public class ResetManageSeanceAndQuitCommand implements Command {
+public class ResetCreateCardSeanceAndQuitCommand implements Command {
     CreateCardSeanceService seanceService;
     CreateCardSeance createCardSeance;
     Long chatId;

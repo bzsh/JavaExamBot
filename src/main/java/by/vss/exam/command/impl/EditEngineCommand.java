@@ -36,6 +36,8 @@ public class EditEngineCommand implements Command {
             "- *Exit* что бы выйти в меню.";
     public static final String USER_EDIT_CARD_GREETINGS_TEXT =
             "   *Меню редактирования карточек*\n" +
+                    "В случае изменения данных, карточка\n" +
+                    "будет заново отправлена на модерацию !\n" +
                     "Используй:\n" +
                     "- *Назад & Вперед* что бы менять карточки\n" +
                     "- *Просмотр* что бы просматривать стороны карточки\n" +
@@ -50,8 +52,20 @@ public class EditEngineCommand implements Command {
             "- *Change role* что бы сменить роль пользователя\n" +
             "- *Find by ID* что бы найти пользователя по его ID\n" +
             "- *Exit* что бы выйти в меню.";
-    public static final String EDITING_QUESTION_TEXT = "*Новый вопрос принят!*\n";
-    public static final String EDITING_ANSWER_TEXT = "*Новый вответ принят!*\n";
+    public static final String EDITING_QUESTION_TEXT =
+            "║\n" +
+                    "║ *Новый вопрос принят!* \n" +
+                    "║ Нажмите:\n" +
+                    "║ *Просмотр*, что бы увидеть результат\n" +
+                    "║ Не забудьте *Сохранить!*\n" +
+                    "║";
+    public static final String EDITING_ANSWER_TEXT =
+            "║\n" +
+                    "║ *Новый ответ принят!* \n" +
+                    "║ Нажмите:\n" +
+                    "║ *Просмотр*, что бы увидеть результат\n" +
+                    "║ Не забудьте *Сохранить!*\n" +
+                    "║";
     public static final String SAVED_CARD_TEXT = "*Сохранить карту?*\n" +
             "нажмите:\n" +
             "*- Сохранить*, что бы сохранить и выйти\n" +
@@ -81,6 +95,7 @@ public class EditEngineCommand implements Command {
         user = userService.getUser(chatId);
         editSeanceService = new EditCardSeanceService();
         editCardSeance = editSeanceService.getEditCardSeance(chatId);
+        userString = editCardSeance.getEditedString();
         editCardStage = editCardSeance.getEditCardStage();
         editCardType = editCardSeance.getEditCardType();
         userRole = user.getRole();
@@ -145,7 +160,7 @@ public class EditEngineCommand implements Command {
 
     private String getQuestionByUserRole() {
         if (userRole.equals(UserRole.ADMIN)) {
-            return getCardInfo() + currentCard.getSideA();
+            return currentCard.getSideA() + "\n" + getCardInfo();
         } else {
             return currentCard.getSideA();
         }
@@ -153,7 +168,7 @@ public class EditEngineCommand implements Command {
 
     private String getAnswerByUserRole() {
         if (userRole.equals(UserRole.ADMIN)) {
-            return getCardInfo() + currentCard.getSideB();
+            return currentCard.getSideB() + "\n" + getCardInfo();
         } else {
             return currentCard.getSideB();
         }
@@ -195,24 +210,36 @@ public class EditEngineCommand implements Command {
     private void makeUserEditCardButtons() {
         List<String> buttonNames;
         List<String> buttonQueries;
-        buttonNames = Arrays.asList("Просмотр", "Изм. вопрос", "Изм.ответ", "Назад", "Выход", "Вперед", "Сохранить");
-        buttonQueries = Arrays.asList("ROTATE_AND_VIEW_EDIT_CARD", "EDIT_QUESTION", "EDIT_ANSWER", "PREV_COMMAND", "QUIT_CREATE", "NEXT_COMMAND", "SAVE_CARD");
+        buttonNames = Arrays.asList(
+                "Просмотр", "Изм. вопрос", "Изм.ответ",
+                "Назад", "Выход", "Вперед", "Сохранить");
+        buttonQueries = Arrays.asList(
+                "ROTATE_AND_VIEW_EDIT_CARD", "EDIT_QUESTION", "EDIT_ANSWER",
+                "PREV_COMMAND", "RESET_EDIT_SEANCE_COMMAND", "NEXT_COMMAND", "SAVE_CARD");
         markup = KeyboardCreator.createInlineKeyboard(buttonNames, buttonQueries);
     }
 
     private void makeAdminEditCardButtons(String approveButton) {
         List<String> buttonNames;
         List<String> buttonQueries;
-        buttonNames = Arrays.asList("Show sides", approveButton, "By ID card", "Exit", "Change answer", "Change question", "⏪ Prev", "Next ⏩");
-        buttonQueries = Arrays.asList("ROTATE_AND_VIEW_EDIT_CARD", "APPROVE_CARD", "ENTER_CARD_ID", "QUIT_CREATE", "EDIT_ANSWER", "EDIT_QUESTION", "PREV_COMMAND", "NEXT_COMMAND");
+        buttonNames = Arrays.asList(
+                "Show sides", approveButton, "By ID card", "Exit",
+                "Change question", "Change answer", "⏪ Prev", "Next ⏩");
+        buttonQueries = Arrays.asList(
+                "ROTATE_AND_VIEW_EDIT_CARD", "APPROVE_COMMAND", "ENTER_CARD_ID", "RESET_EDIT_SEANCE_COMMAND",
+                "EDIT_QUESTION", "EDIT_ANSWER", "PREV_COMMAND", "NEXT_COMMAND");
         markup = KeyboardCreator.createInlineKeyboard(buttonNames, buttonQueries);
     }
 
     private void makeAdminEditUserButtons() {
         List<String> buttonNames;
         List<String> buttonQueries;
-        buttonNames = Arrays.asList("⏪", "Change role", "⏩", "Find by ID", "Exit");
-        buttonQueries = Arrays.asList("PREV_COMMAND", "EDIT_USER_ROLE", "NEXT_COMMAND", "ENTER_CARD_ID", "QUIT_CREATE");
+        buttonNames = Arrays.asList(
+                "⏪", "Change role", "⏩",
+                "Find by ID", "Exit");
+        buttonQueries = Arrays.asList(
+                "PREV_COMMAND", "EDIT_USER_ROLE", "NEXT_COMMAND",
+                "ENTER_CARD_ID", "RESET_EDIT_SEANCE_COMMAND");
         markup = KeyboardCreator.createInlineKeyboard(buttonNames, buttonQueries);
     }
 

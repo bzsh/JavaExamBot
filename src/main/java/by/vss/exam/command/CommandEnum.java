@@ -11,7 +11,7 @@ public enum CommandEnum {
     EDIT_ENGINE_COMMAND(new EditEngineCommand()),
     CARD_ENGINE_COMMAND(new CardEngineCommand()),
     TEST_ENGINE_COMMAND(new TestEngineCommand()),
-    MANAGE_ENGINE_COMMAND(new CreateCardEngineCommand()),
+    CREATE_ENGINE_COMMAND(new CreateCardEngineCommand()),
     QUIT_ENGINE(new QuitEngineCommand()),
 
     //main menu commands
@@ -39,8 +39,9 @@ public enum CommandEnum {
 
     EDIT_QUESTION(new ChangeQuestionCommand()),
     EDIT_ANSWER(new ChangeAnswerCommand()),
+    EDIT_USER_ROLE(new EditUserRoleCommand()),
+    APPROVE_COMMAND(new ApproveCardCommand()),
 
-    // create card commands
     CREATE_ENGLISH(new CreateEnglishCardCommand()),
     CREATE_JAVA(new CreateJavaCardCommand()),
 
@@ -51,7 +52,7 @@ public enum CommandEnum {
 
     QUIT_CREATE(new QuitCreateCardCommand()),
 
-    RESET_SEANCE_COMMAND(new ResetManageSeanceAndQuitCommand()),
+    RESET_SEANCE_COMMAND(new ResetCreateCardSeanceAndQuitCommand()),
 
     //edit card commands
     EDIT_ENGLISH(new EditEnglishCardCommand()),
@@ -66,6 +67,12 @@ public enum CommandEnum {
 
     NEXT_COMMAND(new NextCommand()),
     PREV_COMMAND(new PrevCommand()),
+
+    SAVE_USER_TO_FILE(new SaveToUserFileCommand()),
+    SAVE_JAVA_TO_FILE(new SaveToJavaFileCommand()),
+    SAVE_ENGLISH_TO_FILE(new SaveToEnglishFileCommand()),
+
+    RESET_EDIT_SEANCE_COMMAND(new ResetEditCardSeanceAndQuitCommand()),
 
 
     // test commands

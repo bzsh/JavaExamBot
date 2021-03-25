@@ -49,6 +49,15 @@ public class CommandResult {
         this.sendMessages = sendMessages;
     }
 
+    public CommandResult(List<SendMessage> sendMessages, DeleteMessage deleteMessage) {
+        this.sendMessages = sendMessages;
+        this.deleteMessage = deleteMessage;
+    }
+
+    public  boolean hasDeleteAndSendMessages(){
+        return deleteMessage != null && sendMessages != null;
+    }
+
     public boolean hasSendMessages() {
         return sendMessages != null;
     }
@@ -69,7 +78,7 @@ public class CommandResult {
         return deleteMessage != null;
     }
 
-    public boolean hasDeleteAndSendMessages() {
+    public boolean hasDeleteAndSendMessage() {
         return deleteMessage != null && sendMessage != null;
     }
 

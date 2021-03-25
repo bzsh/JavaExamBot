@@ -28,8 +28,8 @@ public class PrintJavaCommand implements Command {
         cardService = new CardService();
         response = getResponseStringFromJavaCards();
 
-        List<String> buttonNames = Arrays.asList("Назад");
-        List<String> buttonQueries = Arrays.asList("print_list");
+        List<String> buttonNames = Arrays.asList("Сохранить", "Назад");
+        List<String> buttonQueries = Arrays.asList("SAVE_JAVA_TO_FILE", "print_list");
         markup = KeyboardCreator.createInlineKeyboard(buttonNames, buttonQueries);
         EditMessageText editMessageText = EditMessageTextCreator.createEditMessageWithInlineMarkup(chatId, messageId, markup, response);
         return new CommandResult(editMessageText);

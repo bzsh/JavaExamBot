@@ -65,6 +65,8 @@ public class ExamBotController extends TelegramLongPollingBot {
     private void executeCommandResult(CommandResult commandResult) {
         if (commandResult != null) {
             if (commandResult.hasDeleteAndSendMessages()) {
+                deleteAndSendMessages(commandResult);
+            } else if (commandResult.hasDeleteAndSendMessage()) {
                 deleteAndSendMessage(commandResult);
             } else if (commandResult.hasAnswerCallbackQuery()) {
                 sendAnswerCallback(commandResult);
@@ -78,10 +80,9 @@ public class ExamBotController extends TelegramLongPollingBot {
                 sendMessageToSeveralUsers(commandResult);
             }
         }
-
     }
 
-    private void sendAnswerCallback(CommandResult result) {
+    private void sendAnswerCallback(CommandResult result) {   // TODO     !!!!!!!!!!!!!!!!!!!!!!
         AnswerCallbackQuery answer = result.getAnswerCallbackQuery();
         if (result.hasEditMessage()) {
             editMsg(result);
@@ -150,6 +151,11 @@ public class ExamBotController extends TelegramLongPollingBot {
     private void sendMessageToSeveralUsers(CommandResult commandResult) {
         List<SendMessage> sendMessages = commandResult.getSendMessages();
         sendMessages.forEach(this::sndMsg);
+    }
+
+    private void deleteAndSendMessages(CommandResult commandResult) {
+        deleteMsg(commandResult);
+        sendMessageToSeveralUsers(commandResult);
     }
 
     private void deleteAndSendMessage(CommandResult commandResult) {

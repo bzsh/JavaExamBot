@@ -174,7 +174,7 @@ public class CreateCardEngineCommand implements Command {
         List<String> buttonNames;
         List<String> buttonQueries;
         buttonNames = Arrays.asList("Ввести вопрос", "Выход");
-        buttonQueries = Arrays.asList("ENTER_QUESTION", "QUIT_CREATE");
+        buttonQueries = Arrays.asList("ENTER_QUESTION", "RESET_SEANCE_COMMAND");
         markup = KeyboardCreator.createInlineKeyboard(buttonNames, buttonQueries);
     }
 
@@ -183,7 +183,7 @@ public class CreateCardEngineCommand implements Command {
         List<String> buttonNames;
         List<String> buttonQueries;
         buttonNames = Arrays.asList("Сохранить", "Отмена");
-        buttonQueries = Arrays.asList("SEND_TO_MODERATE", "MANAGE_ENGINE_COMMAND");
+        buttonQueries = Arrays.asList("SEND_TO_MODERATE_CREATED_CARD", "CREATE_ENGINE_COMMAND");
         markup = KeyboardCreator.createInlineKeyboard(buttonNames, buttonQueries);
     }
 

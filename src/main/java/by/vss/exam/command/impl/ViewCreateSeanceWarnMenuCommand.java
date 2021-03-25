@@ -36,7 +36,7 @@ public class ViewCreateSeanceWarnMenuCommand implements Command {
                 "вернуться - что бы вернуться к сеансу.\n" +
                 "выход -  что бы сбросить сеанс и выйти.";
         List<String> buttonNames = Arrays.asList("Вернуться", "Выход");
-        List<String> buttonQueries = Arrays.asList("MANAGE_ENGINE_COMMAND", "RESET_SEANCE_COMMAND");
+        List<String> buttonQueries = Arrays.asList("CREATE_ENGINE_COMMAND", "RESET_SEANCE_COMMAND");
         markup = KeyboardCreator.createInlineKeyboard(buttonNames, buttonQueries);
         return getResultOfCallback(isCallBack, message, response);
     }

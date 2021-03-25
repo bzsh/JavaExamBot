@@ -35,6 +35,7 @@ public class EditJavaCardCommand implements Command {
         user = userService.getUser(chatId);
 
         if (isCallback) {
+            editSeance.setActive(true);
             editSeance.setCards(getCardsByUserRole());
             editSeance.setEditCardType(EditCardType.EDIT_JAVA_CARD);
             editSeance.setEditCardStage(EditCardStage.SHOW_EDIT_CARD_START_MESSAGE);

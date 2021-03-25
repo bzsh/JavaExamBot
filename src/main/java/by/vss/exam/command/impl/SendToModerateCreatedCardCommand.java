@@ -8,8 +8,10 @@ import by.vss.exam.constant.ConstantHolder;
 import by.vss.exam.service.CreateCardSeanceService;
 import by.vss.exam.service.UserService;
 import by.vss.exam.utill.creator.keyboard.KeyboardCreator;
+import by.vss.exam.utill.creator.message.DeleteMessageCreator;
 import by.vss.exam.utill.creator.message.SendMessageCreator;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 
@@ -51,8 +53,9 @@ public class SendToModerateCreatedCardCommand implements Command {
         ReplyKeyboardMarkup markup = KeyboardCreator.createReplyKeyboard(buttonNames, true, true, true);
         SendMessage sendMessage = SendMessageCreator.createSendMessageWithReplyKeyboard(chatId, markup, menu);
         SendMessage adminSendMessage = SendMessageCreator.createSendMessage(adminChatId, messageToAdmin);
+        DeleteMessage deleteMessage = DeleteMessageCreator.createDeleteMessage(chatId, message.getMessageId());
         sendMessages.add(adminSendMessage);
         sendMessages.add(sendMessage);
-        return new CommandResult(sendMessages);
+        return new CommandResult(sendMessages, deleteMessage);
     }
 }

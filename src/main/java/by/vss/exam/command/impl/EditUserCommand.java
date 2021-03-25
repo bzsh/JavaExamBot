@@ -27,6 +27,7 @@ public class EditUserCommand implements Command {
         editSeance = editSeanceService.getEditCardSeanceOrCreate(chatId);
 
         if (user.getRole().equals(UserRole.ADMIN)) {
+            editSeance.setActive(true);
             editSeance.setUsers(userService.getAllUsers());
             editSeance.setEditCardType(EditCardType.EDIT_USER_DATA);
             editSeance.setEditCardStage(EditCardStage.SHOW_EDIT_USER_START_MESSAGE);

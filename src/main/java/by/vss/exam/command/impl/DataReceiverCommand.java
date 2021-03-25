@@ -42,9 +42,10 @@ public class DataReceiverCommand implements Command {
             editCardSeance = editCardSeanceService.getEditCardSeance(chatId);
             if (editCardSeance.isOnReceived()) {
                 userString = message.getText();
-                createCardSeance.setUserString(userString);
-                createCardSeance.setOnReceived(false);
-                return new CreateCardEngineCommand().execute(message, isCallback, callbackId);
+                editCardSeance.setEditedString(userString);
+                editCardSeance.getCurrentCard().setApproved(false);
+                editCardSeance.setOnReceived(false);
+                return new EditEngineCommand().execute(message, isCallback, callbackId);
             }
         }
         return new EmptyCommand().execute(message, isCallback, callbackId);

@@ -30,8 +30,8 @@ public class PrintEnglishCommand implements Command {
         cardService = new CardService();
         response = getResponseStringFromEnglishCards();
 
-        List<String> buttonNames = Arrays.asList("Назад");
-        List<String> buttonQueries = Arrays.asList("print_list");
+        List<String> buttonNames = Arrays.asList("Сохранить", "Назад");
+        List<String> buttonQueries = Arrays.asList("SAVE_ENGLISH_TO_FILE", "print_list");
         markup = KeyboardCreator.createInlineKeyboard(buttonNames, buttonQueries);
         EditMessageText editMessageText = EditMessageTextCreator.createEditMessageWithInlineMarkup(chatId, messageId, markup, response);
         return new CommandResult(editMessageText);
