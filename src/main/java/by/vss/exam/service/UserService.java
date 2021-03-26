@@ -36,7 +36,7 @@ public class UserService {
         return users;
     }
 
-    private boolean containsUser(Long id) {
+    public boolean containsUser(Long id) {
         return userRepository.containsUser(id);
     }
 

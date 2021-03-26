@@ -33,8 +33,7 @@ public class EndTaskTestCommand implements Command {
     }
 
     private CommandResult viewFinishMenu() {
-        String text = "Тест завершен !\n" +
-                "Результат сохранен, спасибо !\n";
+        String text = "Тест завершен, спасибо !\n";
         List<String> buttonNames = Arrays.asList("К меню");
         List<String> buttonQueries = Arrays.asList("main_menu");
        InlineKeyboardMarkup markup = KeyboardCreator.createInlineKeyboard(buttonNames, buttonQueries);

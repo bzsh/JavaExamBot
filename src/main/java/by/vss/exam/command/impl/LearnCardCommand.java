@@ -21,25 +21,19 @@ public class LearnCardCommand implements Command {
     Card card;
     User user;
     Long cardId;
-    boolean isJavaType;
-    boolean isEnglishType;
-    boolean isCallback;
 
     @Override
     public CommandResult execute(Message message, boolean isCallback, String callbackId) {
-        this.chatId = message.getChatId();
-        this.isCallback = isCallback;
-        this.userService = new UserService();
-        this.studyService = new CardStudyService();
-        this.study = studyService.getStudy(chatId);   //TOdo check for null and/or return delete this message
-        this.card = study.getCurrentCard();
-        this.cardType = card.getCardType();
-        this.user = userService.getUser(chatId);
-        this.cardId = card.getCardId();
-        this.userStatistic = user.getUserStatistic();
-        boolean isOnLearn = getCardIsLearned();
-        isEnglishType = cardType.equals(CardType.ENGLISH);
-        isJavaType = cardType.equals(CardType.JAVA);
+        chatId = message.getChatId();
+        userService = new UserService();
+        studyService = new CardStudyService();
+        study = studyService.getStudy(chatId);
+        card = study.getCurrentCard();
+        cardType = card.getCardType();
+        user = userService.getUser(chatId);
+        cardId = card.getCardId();
+        userStatistic = user.getUserStatistic();
+        boolean isOnLearn = getCardIsLearnedByType();
 
         if (isOnLearn) {
             removeCardIdStatistic();
@@ -49,29 +43,35 @@ public class LearnCardCommand implements Command {
         return new CardEngineCommand().execute(message, isCallback, callbackId);
     }
 
-    private boolean getCardIsLearned() {
-        boolean result = false;
-        if (isJavaType) {
-            result = userStatistic.getOnLearnJavaCard().contains(cardId);
-        } else if (isEnglishType) {
-            result = userStatistic.getOnLearnEnglishCard().contains(cardId);
+    private boolean getCardIsLearnedByType() {
+        switch (cardType) {
+            case JAVA:
+                return userStatistic.getOnLearnJavaCard().contains(card.getCardId());
+            case ENGLISH:
+                return userStatistic.getOnLearnEnglishCard().contains(card.getCardId());
         }
-        return result;
+        return false;
     }
 
     private void addCardIdStatistic() {
-        if (isJavaType) {
-            userStatistic.addJavaCardIdToStatistic(cardId);
-        } else if (isEnglishType) {
-            userStatistic.addEnglishCardIdToStatistic(cardId);
+        switch (cardType) {
+            case JAVA:
+                userStatistic.addJavaCardIdToStatistic(cardId);
+                break;
+            case ENGLISH:
+                userStatistic.addEnglishCardIdToStatistic(cardId);
+                break;
         }
     }
 
     private void removeCardIdStatistic() {
-        if (isJavaType) {
-            userStatistic.removeJavaCardIdToStatistic(cardId);
-        } else if (isEnglishType) {
-            userStatistic.removeEnglishCardIdToStatistic(cardId);
+        switch (cardType) {
+            case JAVA:
+                userStatistic.removeJavaCardIdToStatistic(cardId);
+                break;
+            case ENGLISH:
+                userStatistic.removeEnglishCardIdToStatistic(cardId);
+                break;
         }
     }
 }

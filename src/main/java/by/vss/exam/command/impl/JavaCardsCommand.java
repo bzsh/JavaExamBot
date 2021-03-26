@@ -33,14 +33,13 @@ public class JavaCardsCommand implements Command {
         cardService = new CardService();
         studyService = new CardStudyService();
         study = studyService.getStudyOrCreate(chatId);
-//        study.setRotated(false);
+        study.setRotated(false);
         studyService.doStudyAsNew(study, CardType.JAVA);
 
         List<Card> cards;
         if (study.isOptional()) {
             userService = new UserService();
             user = userService.getUser(chatId);
-
             userStatistics = user.getUserStatistic();
             cards = cardService.getUserCards(userStatistics.getOnLearnJavaCard(), CardType.JAVA);
         } else {

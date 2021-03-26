@@ -31,12 +31,6 @@ public class Card {
         this.sideB = sideB;
         this.comments = comments;
     }
-//    public Card(Long cardId, Long creatorId, String question, String answer, HashMap<Long, String> comments) {
-//        this.cardId = cardId;
-//        this.sideA = question;
-//        this.sideB = answer;
-//        this.comments = comments;
-//    }
 
     public Long getCreatorId() {
         return creatorId;

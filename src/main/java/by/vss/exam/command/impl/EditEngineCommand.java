@@ -71,6 +71,32 @@ public class EditEngineCommand implements Command {
             "*- Сохранить*, что бы сохранить и выйти\n" +
             "\n" +
             "*- Отмена*, что бы вернуться";
+    public static final String NO_CARD_WITH_SUCH_ID =
+            "║\n" +
+                    "║ *Карты с таким Id нет!* \n" +
+                    "║ Нажмите:\n" +
+                    "║ *Просмотр*, что бы вернуться\n" +
+                    "║ или пробуйте снова с другим ID.\n" +
+                    "║";
+    public static final String NO_USER_WITH_SUCH_ID =
+            "║\n" +
+                    "║ *Юзера с таким Id нет!* \n" +
+                    "║ Нажмите:\n" +
+                    "║ *Просмотр*, что бы вернуться\n" +
+                    "║ или пробуйте снова с другим ID.\n" +
+                    "║";
+    public static final String CARD_WITH_SUCH_ID_FOUND =
+            "║\n" +
+                    "║ *Карта с таким Id найдена!* \n" +
+                    "║ Нажмите:\n" +
+                    "║ *Просмотр*, что бы посмотреть.\n" +
+                    "║";
+    public static final String USER_WITH_SUCH_ID_FOUND =
+            "║\n" +
+                    "║ *Юзер с таким Id найден!* \n" +
+                    "║ Нажмите:\n" +
+                    "║ *Просмотр*, что бы посмотреть.\n" +
+                    "║";
 
     EditCardSeanceService editSeanceService;
     InlineKeyboardMarkup markup;
@@ -86,6 +112,7 @@ public class EditEngineCommand implements Command {
     String response;
     Card currentCard;
     User currentUser;
+    Long receivedId;
 
     @Override
     public CommandResult execute(Message message, boolean isCallback, String callbackId) {
@@ -102,9 +129,9 @@ public class EditEngineCommand implements Command {
 
         makeButtonsByEditSeanceType();
 
-        response = getResponseByEditCardStage();
-
         doLogicByEditCardStage();
+
+        response = getResponseByEditCardStage();
 
         return getResultOfCallback(isCallback, response);
     }
@@ -147,9 +174,41 @@ public class EditEngineCommand implements Command {
                 return showCurrentUser();
             case SAVED_CARD:
                 return SAVED_CARD_TEXT;
+            case FIND_BY_ID:
+                return getResultOfFindResult();
         }
         return "";
     }
+
+    private String getResultOfFindResult() {
+        if (editCardType == EditCardType.EDIT_USER_DATA) {
+            return findUserById();
+        }
+        return findCardById();
+    }
+
+    private String findCardById() {
+        List<Card> cards = editCardSeance.getCards();
+        for (Card c : cards) {
+            if (c.getCardId().equals(receivedId)) {
+                currentCard = c;
+                return getQuestionByUserRole();
+            }
+        }
+        return NO_CARD_WITH_SUCH_ID;
+    }
+
+    private String findUserById() {
+        List<User> cards = editCardSeance.getUsers();
+        for (User u : cards) {
+            if (u.getUserId().equals(receivedId)) {
+                currentUser = u;
+                return showCurrentUser();
+            }
+        }
+        return NO_USER_WITH_SUCH_ID;
+    }
+
 
     private String getCardInfo() {
         String isApproved = currentCard.isApproved() ? "*Approved*" : "*Disapproved*";
@@ -182,9 +241,8 @@ public class EditEngineCommand implements Command {
             case RECEIVED_EDITED_ANSWER:
                 currentCard.setSideB("`" + FrameCreator.createFrameStringMessage(userString, "║") + "`");
                 break;
-            case SHOW_USER:
-                makeAdminEditUserButtons();
-                break;
+            case FIND_BY_ID:
+                receivedId = Long.parseLong(userString);
         }
     }
 
@@ -226,7 +284,7 @@ public class EditEngineCommand implements Command {
                 "Show sides", approveButton, "By ID card", "Exit",
                 "Change question", "Change answer", "⏪ Prev", "Next ⏩");
         buttonQueries = Arrays.asList(
-                "ROTATE_AND_VIEW_EDIT_CARD", "APPROVE_COMMAND", "ENTER_CARD_ID", "RESET_EDIT_SEANCE_COMMAND",
+                "ROTATE_AND_VIEW_EDIT_CARD", "APPROVE_COMMAND", "FIND_BY_ID_COMMAND", "RESET_EDIT_SEANCE_COMMAND",
                 "EDIT_QUESTION", "EDIT_ANSWER", "PREV_COMMAND", "NEXT_COMMAND");
         markup = KeyboardCreator.createInlineKeyboard(buttonNames, buttonQueries);
     }
@@ -239,7 +297,7 @@ public class EditEngineCommand implements Command {
                 "Find by ID", "Exit");
         buttonQueries = Arrays.asList(
                 "PREV_COMMAND", "EDIT_USER_ROLE", "NEXT_COMMAND",
-                "ENTER_CARD_ID", "RESET_EDIT_SEANCE_COMMAND");
+                "FIND_BY_ID_COMMAND", "RESET_EDIT_SEANCE_COMMAND");
         markup = KeyboardCreator.createInlineKeyboard(buttonNames, buttonQueries);
     }
 

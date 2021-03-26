@@ -14,6 +14,8 @@ public enum EditCardStage {
     RECEIVED_EDITED_QUESTION,
     RECEIVED_EDITED_ANSWER,
 
+    FIND_BY_ID,
+
     SAVED_CARD,
 
     SHOW_QUESTION,

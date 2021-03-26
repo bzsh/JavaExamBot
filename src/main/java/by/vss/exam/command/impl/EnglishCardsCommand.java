@@ -33,7 +33,9 @@ public class EnglishCardsCommand implements Command {
         cardService = new CardService();
         studyService = new CardStudyService();
         study = studyService.getStudyOrCreate(chatId);
+        study.setRotated(false);
         studyService.doStudyAsNew(study, CardType.ENGLISH);
+
         List<Card> cards;
         if (study.isOptional()) {
             userService = new UserService();

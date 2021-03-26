@@ -15,9 +15,7 @@ public class InfoCommand implements Command {
     @Override
     public CommandResult execute(Message message, boolean isCallback, String callbackId) {
         String aboutMessage = "~*Info*~\n\n" +
-                "`Lorem ipsum dolor sit amet,`\n\n" +
-                "`consectetur adipiscing elit,`\n" +
-                "`sed do eiusmod tempor incididunt`\n" +
+                "`Sed do eiusmod tempor incididunt`\n" +
                 "`ut labore et dolore magna aliqua.`" +
                 "`Ut enim ad minim veniam, `\n\n" +
                 "`quis nostrud exercitation ullamco`\n\n" +

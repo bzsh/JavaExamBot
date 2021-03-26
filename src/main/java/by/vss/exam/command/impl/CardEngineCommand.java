@@ -26,21 +26,16 @@ public class CardEngineCommand implements Command {
     UserService userService;
     Statistic userStatistic;
     Card currentCard;
-    boolean isEnglishType;
-    boolean isJavaType;
     CardType cardType;
     CardStudy study;
     Long chatId;
     User user;
-
     Integer messageId;
-    boolean isCallback;
 
     @Override
     public CommandResult execute(Message message, boolean isCallback, String callbackId) {
         chatId = message.getChatId();
         messageId = message.getMessageId();
-        this.isCallback = isCallback;
         userService = new UserService();
         user = userService.getUser(chatId);
         userStatistic = user.getUserStatistic();
@@ -48,8 +43,6 @@ public class CardEngineCommand implements Command {
         study = studyService.getStudy(chatId);
         currentCard = study.getCurrentCard();
         cardType = currentCard.getCardType();
-        isEnglishType = cardType.equals(CardType.ENGLISH);
-        isJavaType = cardType.equals(CardType.JAVA);
 
         if (study.isNew()) {
             study.setActive(true);
@@ -57,13 +50,13 @@ public class CardEngineCommand implements Command {
         }
 
         if (study.isActive()) {
-            return viewCard();
+            return viewCard(isCallback);
         } else {
-            return null;
+            return new EmptyCommand().execute(message, isCallback, callbackId);
         }
     }
 
-    private CommandResult viewCard() {
+    private CommandResult viewCard(boolean isCallback) {
         String text = prepareOutputText(currentCard.getSideA(), currentCard.getSideB());
         boolean isOnLearn = getCardIsLearnedByType();
         List<String> buttonNames = createButtonNames(isOnLearn);
@@ -101,13 +94,13 @@ public class CardEngineCommand implements Command {
     }
 
     private boolean getCardIsLearnedByType() {
-        boolean result = false;
-        if (isJavaType) {
-            result = userStatistic.getOnLearnJavaCard().contains(currentCard.getCardId());
-        } else if (isEnglishType) {
-            result = userStatistic.getOnLearnEnglishCard().contains(currentCard.getCardId());
+        switch (cardType) {
+            case JAVA:
+                return userStatistic.getOnLearnJavaCard().contains(currentCard.getCardId());
+            case ENGLISH:
+                return userStatistic.getOnLearnEnglishCard().contains(currentCard.getCardId());
         }
-        return result;
+        return false;
     }
 
     private CommandResult getResultOfCallback(boolean isCallback, String text) {

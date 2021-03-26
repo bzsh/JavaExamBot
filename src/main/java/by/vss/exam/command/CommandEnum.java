@@ -59,6 +59,8 @@ public enum CommandEnum {
     EDIT_JAVA(new EditJavaCardCommand()),
     EDIT_USER(new EditUserCommand()),
 
+    FIND_BY_ID_COMMAND(new FindByIdCommand()),
+
     PRINT_LIST(new PrintListCommand()),
 
     PRINT_USER(new PrintUserCommand()),
@@ -97,8 +99,6 @@ public enum CommandEnum {
 
     //other commands
     EMOJI(new EmojiCommand()),
-    STATISTICS(new StatisticsCommand()),
-    EXAMPLE(new ExampleCommand()),
     EMPTY(new EmptyCommand());
 
     private final Command command;
