@@ -18,8 +18,8 @@ public class AboutCommand implements Command {
                 "`This bot was created for studying and testing knowledge.`\n\n" +
                 "`Use` *Test* `mode to check your knowledge`.\n" +
                 "`Use` *Card* `mode to studying`.\n" +
-                "`Use` *Manage* `mode to add new TestTasks or Cards, `" +
-                "`you can also type comments for each task.`\n\n" +
+                "`Use` *Manage* `mode to create Cards, `" +
+                "`you can also edit your cards.`\n\n" +
                 "`For any questions message` [here](tg://user?id=441501611)\n\n" +
                 "*Source code:* [github.com/bzsh/JavaExamBot](https://github.com/bzsh/JavaExamBot)\n";
         List<String> button = new ArrayList<>();
