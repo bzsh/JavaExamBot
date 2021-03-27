@@ -4,6 +4,7 @@ import by.vss.exam.bean.card.Card;
 import by.vss.exam.bean.manage.createCard.CreateCardSeance;
 import by.vss.exam.bean.manage.createCard.CreateCardType;
 import by.vss.exam.bean.manage.createCard.CreateCardStage;
+import by.vss.exam.bean.manage.editCard.EditCardType;
 import by.vss.exam.command.Command;
 import by.vss.exam.command.CommandResult;
 import by.vss.exam.service.CardService;
@@ -121,11 +122,11 @@ public class CreateCardEngineCommand implements Command {
                 makeMainEnterQuestionButtons();
                 break;
             case RECEIVED_QUESTION:
-                getCardByCreateCardType(createCardType).setSideA("`" + FrameCreator.createFrameStringMessage(userString, "║") + "`");
+                getCardByCreateCardType(createCardType).setSideA("`" + FrameCreator.createCentredFrameStringMessage(userString) + "`");
                 makeMainEnterAnswerButtons();
                 break;
             case RECEIVED_ANSWER:
-                getCardByCreateCardType(createCardType).setSideB("`" + FrameCreator.createFrameStringMessage(userString, "║") + "`");
+                getCardByCreateCardType(createCardType).setSideB(getStringByEditSeanceType());
                 makeMainCreateButtons("Просмотр");
                 break;
             case SHOW_QUESTION:
@@ -135,11 +136,11 @@ public class CreateCardEngineCommand implements Command {
                 makeMainCreateButtons("❓ Вопрос");
                 break;
             case RECEIVED_EDITED_QUESTION:
-                getCardByCreateCardType(createCardType).setSideA("`" + FrameCreator.createFrameStringMessage(userString, "║") + "`");
+                getCardByCreateCardType(createCardType).setSideA("`" + FrameCreator.createCentredFrameStringMessage(userString) + "`");
                 makeMainCreateButtons("❓ Вопрос");
                 break;
             case RECEIVED_EDITED_ANSWER:
-                getCardByCreateCardType(createCardType).setSideB("`" + FrameCreator.createFrameStringMessage(userString, "║") + "`");
+                getCardByCreateCardType(createCardType).setSideB(getStringByEditSeanceType());
                 makeMainCreateButtons("✔ Ответ");
                 break;
             case SAVED_CARD:
@@ -149,6 +150,13 @@ public class CreateCardEngineCommand implements Command {
                 makeMainCreateButtons("Просмотр");
                 break;
         }
+    }
+
+    private String getStringByEditSeanceType() {
+        if (createCardType == CreateCardType.CREATE_JAVA_CARD) {
+            return FrameCreator.createUnCentredFrameStringMessage(userString);
+        }
+        return "`" + FrameCreator.createCentredFrameStringMessage(userString) + "`";
     }
 
     private Card getCardByCreateCardType(CreateCardType createCardType) {

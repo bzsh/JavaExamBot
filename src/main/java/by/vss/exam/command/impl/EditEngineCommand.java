@@ -85,18 +85,6 @@ public class EditEngineCommand implements Command {
                     "║ *Просмотр*, что бы вернуться\n" +
                     "║ или пробуйте снова с другим ID.\n" +
                     "║";
-    public static final String CARD_WITH_SUCH_ID_FOUND =
-            "║\n" +
-                    "║ *Карта с таким Id найдена!* \n" +
-                    "║ Нажмите:\n" +
-                    "║ *Просмотр*, что бы посмотреть.\n" +
-                    "║";
-    public static final String USER_WITH_SUCH_ID_FOUND =
-            "║\n" +
-                    "║ *Юзер с таким Id найден!* \n" +
-                    "║ Нажмите:\n" +
-                    "║ *Просмотр*, что бы посмотреть.\n" +
-                    "║";
 
     EditCardSeanceService editSeanceService;
     InlineKeyboardMarkup markup;
@@ -236,14 +224,21 @@ public class EditEngineCommand implements Command {
     private void doLogicByEditCardStage() {
         switch (editCardStage) {
             case RECEIVED_EDITED_QUESTION:
-                currentCard.setSideA("`" + FrameCreator.createFrameStringMessage(userString, "║") + "`");
+                currentCard.setSideA("`" + FrameCreator.createCentredFrameStringMessage(userString) + "`");
                 break;
             case RECEIVED_EDITED_ANSWER:
-                currentCard.setSideB("`" + FrameCreator.createFrameStringMessage(userString, "║") + "`");
+                currentCard.setSideB(getStringByEditSeanceType());
                 break;
             case FIND_BY_ID:
                 receivedId = Long.parseLong(userString);
         }
+    }
+
+    private String getStringByEditSeanceType() {
+        if (editCardType == EditCardType.EDIT_JAVA_CARD) {
+            return FrameCreator.createUnCentredFrameStringMessage(userString);
+        }
+        return "`" + FrameCreator.createCentredFrameStringMessage(userString) + "`";
     }
 
     private String showCurrentUser() {

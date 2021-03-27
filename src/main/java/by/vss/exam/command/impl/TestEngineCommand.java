@@ -48,6 +48,7 @@ public class TestEngineCommand implements Command {
     private CommandResult viewTestTask() {
         if (test.hasNext()) {
             Task nextTask = test.getNext();
+            System.out.println("task Id is : " + nextTask.getTaskId() + "!!!!!!!!!!!!!!!!!!!!!!");
             String question = nextTask.getQuestion();
             List<String> answers = nextTask.getListOfAnswers();
             markup = getMarkup(answers, answers);

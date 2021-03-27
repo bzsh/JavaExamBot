@@ -15,12 +15,26 @@ public class InfoCommand implements Command {
     @Override
     public CommandResult execute(Message message, boolean isCallback, String callbackId) {
         String aboutMessage = "~*Info*~\n\n" +
-                "`Sed do eiusmod tempor incididunt`\n" +
-                "`ut labore et dolore magna aliqua.`" +
-                "`Ut enim ad minim veniam, `\n\n" +
-                "`quis nostrud exercitation ullamco`\n\n" +
-                "`laboris nisi ut aliquip ex ea`\n\n" +
-                "`commodo consequat.`";
+                "При создании Java карт, \n" +
+                "на стороне с ответом на вопрос\n" +
+                "можно использовать спец-символы\n" +
+                "для форматирования текста : \n" +
+                "```  _, *, ` ```, просто окружите \n" +
+                "текст одним из данных символов.\n" +
+                "Пример:``` `слово`, *слово*, _слово_ ```\n" +
+                "Символ `'*'` для (*жирного шрифта*).\n" +
+                "- `'_'` символ нижнего подчеркивания\n" +
+                "преобразует шрифт в (_курсивый_)\n" +
+                "``` '`' ```данный символ для вставки\n" +
+                "кода (`System.out.println();`)\n" +
+                "так же данный символ можно\n" +
+                "использовать для экранирования\n" +
+                "одиночных символов `'*'` и `'_'` \n" +
+                "одиночные, не экранированные символы\n" +
+                "могут вызвать ошибку отображения,\n" +
+                "лучше подготовте вопрос и текст\n" +
+                "ответа, а форматирование предоставте\n" +
+                "администраторам. Удачи :-)";
         List<String> button = new ArrayList<>();
         button.add("Back to Menu");
         List<String> query = new ArrayList<>();
